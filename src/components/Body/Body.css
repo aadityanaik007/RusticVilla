@@ -1,0 +1,134 @@
+.Body{
+    margin: 3rem 0 0 37px;
+}
+.image2{
+    margin-top: 8rem;
+    display: flex;
+    justify-content: flex-start;    
+    flex-direction: row;
+}
+.image2-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 4rem;
+}
+.image2DescTitle{
+    font-size: 3rem;
+    font-family: Roboto-Bold;
+}
+.image2Desc{
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    width: 30rem; /* Set a specific width for the container */
+    padding: 10px; /* Add some padding for spacing */
+    word-wrap: break-word;
+    font-family: Regular;
+
+}
+.image2LearnMoreBtn{
+    padding: 1.7rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: rgb(129, 127, 118);
+    margin: 1.5rem 0 0 0.5rem;
+    width: 13rem;
+    text-align: center;
+    letter-spacing: 2px;
+    font-family: Regular;
+}
+#image3{
+    margin-top: 3.2rem;
+    display: flex;
+    justify-content: flex-start;
+}
+#image3Intro{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#image3Title{
+    font-size: 3rem;
+    font-family: Roboto-Bold;
+}
+
+#image3Desc{
+    margin-top: 1.5rem;
+    margin-right: 8rem;
+    font-size: 1.5rem;
+    width: 30rem; 
+    padding: 10px;
+    word-wrap: break-word;
+    font-family: Regular;
+}
+.image3LearnMoreBtn{
+    padding: 1.7rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: rgb(129, 127, 118);
+    margin: 1.5rem 0 0 0.5rem;
+    width: 13rem;
+    text-align: center;
+    letter-spacing: 2px;
+    font-family: Regular;
+}
+.image4{
+    margin-top: 8rem;
+    display: flex;
+    justify-content: flex-start;    
+    flex-direction: row;
+}
+.image4-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 4rem;
+}
+.image4DescTitle{
+    font-size: 3rem;
+    font-family: Roboto-Bold;
+}
+.image4Desc{
+    margin-top: 1.5rem;
+    font-size: 1.5rem;
+    width: 30rem; /* Set a specific width for the container */
+    padding: 10px; /* Add some padding for spacing */
+    word-wrap: break-word;
+    font-family: Regular;
+
+}
+.image4LearnMoreBtn{
+    padding: 1.7rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: rgb(129, 127, 118);
+    margin: 1.5rem 0 0 0.5rem;
+    width: 13rem;
+    text-align: center;
+    letter-spacing: 2px;
+    font-family: Regular;
+}
+
+
+
+#reviews{
+    margin-top: 3.9rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+#review1{
+    margin: 0 8rem 0 3rem;
+    font-size: 2rem;
+    width: 30rem; 
+    padding: 10px;
+    word-wrap: break-word;
+}
+#review2{
+    margin: 0 8rem 0 8rem;
+    font-size: 2rem;
+    width: 30rem;   
+    padding: 10px;
+    word-wrap: break-word;
+}

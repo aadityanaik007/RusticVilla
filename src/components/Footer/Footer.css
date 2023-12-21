@@ -1,0 +1,44 @@
+#Footer1{
+    margin-top: 3.2rem;
+    width: match-parent;
+    height: 15rem;
+    background-color: rgb(130, 127, 118);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.bookARoom{
+    padding: 1.2rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: rgb(230, 230, 224);
+    margin-top: 2rem;
+    /* margin: 1.5rem 0 0 0.5rem; */
+    width: 13rem;
+    text-align: center;
+    letter-spacing: 2px;
+}
+#Footer2{
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+}
+#introOptions{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.introOpt {
+    color:rgb(130, 127, 118);
+    flex: 0 0 50%; /* Set the flex basis to 33.33% to create three columns */
+    box-sizing: border-box; /* Include padding and border in the box-sizing */
+    padding: 5px; /* Add padding for spacing between items */
+    text-align: left; /* Center text horizontally */
+    /* border-bottom: 1px solid rgb(130, 127, 118); */
+    text-decoration: underline;
+    cursor: pointer;
+
+    /* margin: 5px; Add margin for spacing between items */
+}

@@ -1,0 +1,35 @@
+.PhotosSection{
+    display: flex;
+    flex-direction: row; /* Update to column to stack the child elements vertically */
+    justify-content: center; /* Center vertically */
+    /* align-items: center; Center horizontally */
+    margin: 5rem auto;
+    align-items: flex-start;
+    width: 90%;
+}
+#PhotosTag{
+    font-size:2rem;
+    text-align: left;
+    flex: 1;
+}
+#PhotosDesc{
+    text-align: left; 
+    flex: 1;
+    padding-top: 6rem;
+}
+.GallerySection{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center; */
+    gap: 200px; /* Adjust as needed for horizontal spacing between images */
+    /* max-width: 800px; Set a max-width for the container if needed */
+    margin: 0 auto;
+    padding: 0 30px;
+}
+.GallerySection img{
+    /* max-width: 30%; Adjust to control the width of each image */
+    width: calc(48% - 10px);
+    height: 500px;
+    margin: 10px;
+    /* max-height: 30%; */
+}

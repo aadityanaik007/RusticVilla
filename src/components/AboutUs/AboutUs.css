@@ -1,0 +1,24 @@
+.AboutUsSection{
+    display: flex;
+    flex-direction: row; /* Update to column to stack the child elements vertically */
+    justify-content: center; /* Center vertically */
+    /* align-items: center; Center horizontally */
+    margin: 5rem auto;
+    align-items: flex-start;
+    width: 90%;
+}
+#AboutUsTag{
+    font-size:2rem;
+    text-align: left;
+    flex: 1;
+}
+#AboutUsDesc{
+    text-align: left; 
+    flex: 1;
+}
+#AboutUsImg{
+    max-width: 95%;
+    height: auto; /* Ensures the image maintains its aspect ratio */
+    display: block; /* Ensures margin: auto works correctly */
+    margin: auto; /* Centers the image horizontally */
+}
