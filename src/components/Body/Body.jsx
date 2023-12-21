@@ -4,6 +4,8 @@ import livingRoom from "../../images/villa_images/living_room.jpeg"
 import bedroomBlack from "../../images/villa_images/blackSheetBDR.jpeg"
 import lightBGBedroom from "../../images/villa_images/lightBGBedroom.jpeg"
 import food from "../../images/villa_images/food.png"
+import {Link } from 'react-router-dom'
+
 const Body = () => {
   return (
     <div className='Body'>
@@ -20,7 +22,7 @@ const Body = () => {
             Designed to be a sanctuary in the middle of the city, the Barbosa knows that a little comfort goes a long way.
           </div>
           <div className='image2LearnMoreBtn'>
-            Learn More
+          <Link to="/AboutUs" style={{textDecoration:'none',color: 'inherit' }}>Learn More</Link>
           </div>
         </div>
       </div>
@@ -33,7 +35,7 @@ const Body = () => {
             A stay at the Barbosa is more than a room. Explore a day in the life of a community of artists, innovators and travelers.
           </div>
           <div className='image3LearnMoreBtn'>
-            View Gallery
+          <Link to="/Photos" style={{textDecoration:'none',color: 'inherit' }}>View Gallery</Link>
           </div>
         </div>
         <div id="image3Image">
