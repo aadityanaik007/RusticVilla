@@ -1,4 +1,4 @@
-import React,{ useEffect }  from 'react'
+import React  from 'react'
 import "./Footer.css"
 import instagram from "../../images/insta.png"
 import location from "../../images/location.png"
