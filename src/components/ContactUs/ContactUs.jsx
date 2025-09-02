@@ -1,61 +1,241 @@
-import React from 'react'
-import Header from "../Header/Header"
-import Footer from '../Footer/Footer'
-import "./ContactUs.css"
-// import Map from "../Map/Map"
-import locationImg from "../../images/villa_images/locationImg.png"
+import React, { useState } from "react";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import "./ContactUs.css";
+import locationImg from "../../images/villa_images/locationImg.png";
+
 const ContactUs = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    checkIn: "",
+    checkOut: "",
+    guests: 1,
+    message: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log("Form submitted:", formData);
+    alert("Thank you for your inquiry! We will get back to you soon.");
+  };
+
   return (
-    <div>
-        <Header/>
-        <div className="ContactUsSection">
-            <div id="ContactUsDiv" style={{padding:"10px"}}>
-                <div id="ContactUsTag">
-                    Contact
-                </div>
-                <br />
-                <div id="ContactUsaddress" style={{fontFamily:"Roboto-Light"}}>
-                    Rustic Farm Villa <br />
-                    Near Mandawa Grampanchayat,<br />
-                    Mandva, Wada, Maharashtra 421303, India
-                </div>
-                <br />
-                <div id="phone" style={{fontFamily:"Roboto-Light"}}>
-                    <p style={{fontFamily:"Roboto-Bold"}}>Phone</p>
-                    +(91) 8108-266-499
-                </div>
-                <br />
-                <div id="frontdesk" style={{fontFamily:"Roboto-Light"}}>
-                    <p style={{fontFamily:"Roboto-Bold"}}>Front Desk</p>
-                    +(91) 9892-208-884
-                </div>
-                <br />
-                <div id="hotel reservation" style={{fontFamily:"Roboto-Light"}}>
-                    <p style={{fontFamily:"Roboto-Bold"}}>Hotel Reservation</p>
-                    +(91) 8108-266-399
-                </div>
-                <br />
-                <div id="travelProvision" style={{fontFamily:"Roboto-Light"}}>
-                    <p>Would you like us to arrange airport transfer <br />
-                      with private car or taxi? You can reach us at</p>
-                    +(91) 8452-989-433
-                </div>
+    <div className="contact-page">
+      <Header />
 
-
-            </div>
-            <div id="ContactUsMap">
-                <img src={locationImg} alt="" srcset=""  style={{cursor:"pointer"}} onClick={()=>{
-                     var newTab = window.open("https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu", "_blank");
-                     newTab.focus();
-                }}/>
-            </div>
+      <div className="contact-hero">
+        <div className="contact-hero-content">
+          <h1 className="contact-hero-title">Contact Us</h1>
+          <p className="contact-hero-subtitle">
+            We're here to help you plan your perfect getaway
+          </p>
         </div>
-            {/* <div id="AboutUsImageSection">
-                <img src={prettyBedroom} alt="" srcset="" id="AboutUsImg"/>
-            </div> */}
-        <Footer/>
-    </div>
-  )
-}
+        <div className="contact-hero-overlay"></div>
+      </div>
 
-export default ContactUs
+      <div className="contact-container">
+        <div className="contact-content">
+          <div className="contact-info">
+            <div className="contact-section">
+              <h2 className="contact-section-title">Get in Touch</h2>
+
+              <div className="contact-details">
+                <div className="contact-item">
+                  <div className="contact-icon">📍</div>
+                  <div className="contact-text">
+                    <h3>Address</h3>
+                    <p>
+                      Rustic Farm Villa
+                      <br />
+                      Near Mandawa Grampanchayat,
+                      <br />
+                      Mandva, Wada, Maharashtra 421303, India
+                    </p>
+                  </div>
+                </div>
+
+                <div className="contact-item">
+                  <div className="contact-icon">📞</div>
+                  <div className="contact-text">
+                    <h3>Phone</h3>
+                    <p>+(91) 8108-266-499</p>
+                  </div>
+                </div>
+
+                <div className="contact-item">
+                  <div className="contact-icon">🏨</div>
+                  <div className="contact-text">
+                    <h3>Front Desk</h3>
+                    <p>+(91) 9892-208-884</p>
+                  </div>
+                </div>
+
+                <div className="contact-item">
+                  <div className="contact-icon">📅</div>
+                  <div className="contact-text">
+                    <h3>Reservations</h3>
+                    <p>+(91) 8108-266-399</p>
+                  </div>
+                </div>
+
+                <div className="contact-item">
+                  <div className="contact-icon">🚗</div>
+                  <div className="contact-text">
+                    <h3>Airport Transfer</h3>
+                    <p>
+                      Need transportation? Contact us at
+                      <br />
+                      +(91) 8452-989-433
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="map-section">
+              <h3>Find Us</h3>
+              <div className="map-container">
+                <img
+                  src={locationImg}
+                  alt="Villa Location"
+                  className="map-image"
+                  onClick={() => {
+                    window.open(
+                      "https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu",
+                      "_blank"
+                    );
+                  }}
+                />
+                <div className="map-overlay">
+                  <p>Click to view in Google Maps</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="booking-form">
+            <div className="form-section">
+              <h2 className="form-title">Book Your Stay</h2>
+              <p className="form-subtitle">
+                Fill out the form below and we'll get back to you within 24
+                hours
+              </p>
+
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="name">Full Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone Number</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="guests">Number of Guests</label>
+                    <select
+                      id="guests"
+                      name="guests"
+                      value={formData.guests}
+                      onChange={handleInputChange}
+                    >
+                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                        <option key={num} value={num}>
+                          {num} Guest{num > 1 ? "s" : ""}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="checkIn">Check-in Date</label>
+                    <input
+                      type="date"
+                      id="checkIn"
+                      name="checkIn"
+                      value={formData.checkIn}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="checkOut">Check-out Date</label>
+                    <input
+                      type="date"
+                      id="checkOut"
+                      name="checkOut"
+                      value={formData.checkOut}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="message">Special Requests / Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="4"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Let us know about any special requirements or questions you have..."
+                  ></textarea>
+                </div>
+
+                <button type="submit" className="submit-btn">
+                  Send Booking Request
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default ContactUs;

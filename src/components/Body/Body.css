@@ -1,134 +1,377 @@
-.Body{
-    margin: 3rem 0 0 37px;
-}
-.image2{
-    margin-top: 8rem;
-    display: flex;
-    justify-content: flex-start;    
-    flex-direction: row;
-}
-.image2-description{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 4rem;
-}
-.image2DescTitle{
-    font-size: 3rem;
-    font-family: Roboto-Bold;
-}
-.image2Desc{
-    margin-top: 1.5rem;
-    font-size: 1.5rem;
-    width: 30rem; /* Set a specific width for the container */
-    padding: 10px; /* Add some padding for spacing */
-    word-wrap: break-word;
-    font-family: Regular;
-
-}
-.image2LearnMoreBtn{
-    padding: 1.7rem;
-    font-size: 1.2rem;
+.Body {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
     color: white;
-    background-color: rgb(129, 127, 118);
-    margin: 1.5rem 0 0 0.5rem;
-    width: 13rem;
-    text-align: center;
-    letter-spacing: 2px;
-    font-family: Regular;
-}
-#image3{
-    margin-top: 3.2rem;
-    display: flex;
-    justify-content: flex-start;
-}
-#image3Intro{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 }
 
-#image3Title{
-    font-size: 3rem;
+.section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.image1 {
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 6rem;
+}
+
+.image1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.8) saturate(1.1);
+    transition: transform 0.5s ease;
+}
+
+.image1:hover img {
+    transform: scale(1.05);
+}
+
+.image2, .image4 {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    margin: 6rem auto;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.image2 img, .image4 img {
+    flex: 1;
+    max-width: 500px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.image2 img:hover, .image4 img:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.image2-description, .image4-description {
+    flex: 1;
+    padding: 2rem;
+}
+
+.image2DescTitle, .image4DescTitle {
+    font-size: 2.8rem;
     font-family: Roboto-Bold;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-#image3Desc{
-    margin-top: 1.5rem;
-    margin-right: 8rem;
-    font-size: 1.5rem;
-    width: 30rem; 
-    padding: 10px;
-    word-wrap: break-word;
-    font-family: Regular;
-}
-.image3LearnMoreBtn{
-    padding: 1.7rem;
+.image2Desc, .image4Desc {
     font-size: 1.2rem;
-    color: white;
-    background-color: rgb(129, 127, 118);
-    margin: 1.5rem 0 0 0.5rem;
-    width: 13rem;
-    text-align: center;
-    letter-spacing: 2px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: #d0d0d0;
     font-family: Regular;
 }
-.image4{
-    margin-top: 8rem;
-    display: flex;
-    justify-content: flex-start;    
-    flex-direction: row;
+
+.image2LearnMoreBtn, .image3LearnMoreBtn, .image4LearnMoreBtn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    color: white;
+    background: linear-gradient(135deg, #817f76, #a8a596);
+    border-radius: 30px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-family: Regular;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(129, 127, 118, 0.3);
+    text-transform: uppercase;
+    font-weight: 500;
 }
-.image4-description{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 4rem;
+
+.image2LearnMoreBtn:hover, .image3LearnMoreBtn:hover, .image4LearnMoreBtn:hover {
+    background: linear-gradient(135deg, #a8a596, #817f76);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(129, 127, 118, 0.5);
 }
-.image4DescTitle{
-    font-size: 3rem;
+
+#image3 {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    margin: 6rem auto;
+    max-width: 1200px;
+    padding: 0 2rem;
+    flex-direction: row-reverse;
+}
+
+#image3Intro {
+    flex: 1;
+    padding: 2rem;
+}
+
+#image3Title {
+    font-size: 2.8rem;
     font-family: Roboto-Bold;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
-.image4Desc{
-    margin-top: 1.5rem;
-    font-size: 1.5rem;
-    width: 30rem; /* Set a specific width for the container */
-    padding: 10px; /* Add some padding for spacing */
-    word-wrap: break-word;
-    font-family: Regular;
 
-}
-.image4LearnMoreBtn{
-    padding: 1.7rem;
+#image3Desc {
     font-size: 1.2rem;
-    color: white;
-    background-color: rgb(129, 127, 118);
-    margin: 1.5rem 0 0 0.5rem;
-    width: 13rem;
-    text-align: center;
-    letter-spacing: 2px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: #d0d0d0;
     font-family: Regular;
 }
 
+#image3Image {
+    flex: 1;
+}
 
+#image3Image img {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
 
-#reviews{
-    margin-top: 3.9rem;
+#image3Image img:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+#reviews {
+    margin: 8rem auto 4rem;
+    max-width: 1200px;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reviews-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.reviews-title {
+    font-family: Roboto-Bold;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.reviews-subtitle {
+    font-family: Regular;
+    font-size: 1.2rem;
+    color: #d0d0d0;
+    line-height: 1.6;
+}
+
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.review-card {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    border-left: 4px solid #817f76;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.review-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #817f76, transparent);
+    border-radius: 0 15px 0 15px;
+}
+
+.review-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.review-stars {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.review-text {
+    font-family: Regular;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+    font-style: italic;
+    position: relative;
+}
+
+.review-text::before {
+    content: '"';
+    font-size: 3rem;
+    color: #817f76;
+    position: absolute;
+    left: -10px;
+    top: -10px;
+    font-family: serif;
+}
+
+.review-text::after {
+    content: '"';
+    font-size: 3rem;
+    color: #817f76;
+    position: absolute;
+    right: 5px;
+    bottom: -20px;
+    font-family: serif;
+}
+
+.review-author {
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 }
-#review1{
-    margin: 0 8rem 0 3rem;
-    font-size: 2rem;
-    width: 30rem; 
-    padding: 10px;
-    word-wrap: break-word;
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #817f76, #a8a596);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Roboto-Bold;
+    font-size: 1.1rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-#review2{
-    margin: 0 8rem 0 8rem;
-    font-size: 2rem;
-    width: 30rem;   
-    padding: 10px;
-    word-wrap: break-word;
+
+.author-info {
+    flex: 1;
+}
+
+.author-name {
+    font-family: Roboto-Bold;
+    font-size: 1.1rem;
+    color: #ffffff;
+    margin-bottom: 0.2rem;
+}
+
+.author-location {
+    font-family: Regular;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+.reviews-cta {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.reviews-btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #817f76, #a8a596);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-family: Roboto-Bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(129, 127, 118, 0.3);
+}
+
+.reviews-btn:hover {
+    background: linear-gradient(135deg, #a8a596, #817f76);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(129, 127, 118, 0.5);
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .Body {
+        padding: 2rem 0;
+    }
+    
+    .section {
+        padding: 2rem 1rem;
+    }
+    
+    .image1 {
+        height: 40vh;
+        margin-bottom: 3rem;
+    }
+    
+    .image2, .image4, #image3 {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+        margin: 3rem auto;
+    }
+    
+    .image2-description, .image4-description, #image3Intro {
+        padding: 1rem;
+    }
+    
+    .image2DescTitle, .image4DescTitle, #image3Title {
+        font-size: 2.2rem;
+    }
+    
+    .image2Desc, .image4Desc, #image3Desc {
+        font-size: 1.1rem;
+    }
+    
+    .image2 img, .image4 img, #image3Image img {
+        max-width: 100%;
+        height: 300px;
+    }
+    
+    #reviews {
+        margin: 4rem auto 2rem;
+        padding: 2rem 1rem;
+    }
+    
+    .reviews-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    #review1, #review2 {
+        padding: 1.5rem;
+    }
+    
+    #review1 pre, #review2 pre {
+        font-size: 1.1rem;
+    }
 }

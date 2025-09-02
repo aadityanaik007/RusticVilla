@@ -1,42 +1,133 @@
-import React  from 'react'
-import "./Footer.css"
-import instagram from "../../images/insta.png"
-import location from "../../images/location.png"
-import {Link } from 'react-router-dom'
+import React from "react";
+import "./Footer.css";
+import instagram from "../../images/insta.png";
+import location from "../../images/location.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
-  return (
-    <div>
-        <div id='Footer1'>
-            <div style={{fontSize:"2.6rem",whiteSpace:"pre-wrap"}}>Plan a stay with us today.</div>
-            <div class="bookARoom"><Link to="/ContactUs" style={{textDecoration:'none',color: 'inherit' }}>Book a Room</Link></div>
-        </div>
-        <div id="Footer2">
-            <div id="footLinks" style={{margin:"0 0 0 2.3rem"}}>
-                <div style={{fontSize:"2rem",marginBottom:"1rem"}}>
-                    <Link to="/" style={{textDecoration:'none',color: 'inherit',fontFamily:"Roboto-Bold" }}>Rustic Farm Villa</Link>
-                </div>
-                <div>
-                    <img src={instagram} alt="" srcset="" width="20" height="20" style={{marginRight:"1rem",cursor:"pointer"}} onClick={()=>{
-                        var newTab = window.open("https://www.instagram.com/rustic.farm.villa?igshid=YTQwZjQ0NmI0OA==", "_blank");
-                        newTab.focus();
-                    }}/>
-                    <img src={location} alt="" srcset="" width="15" height="20" style={{cursor:"pointer"}} onClick={()=>{
-                        var newTab = window.open("https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu", "_blank");
-                        newTab.focus();
-                    }}/>
-                </div>
-            </div>
-            <div id="introOptions">
-                <div className='introOpt'><Link to="/AboutUs" style={{textDecoration:'none',color: 'inherit' }}>About Us</Link></div>
-                <div className='introOpt'>Services</div>
-                <div className='introOpt'><Link to='/ContactUs' style={{textDecoration:'none',color: 'inherit' }}>Contact Us</Link></div>
-                <div className='introOpt'><Link to='/Photos' style={{textDecoration:'none',color: 'inherit' }}>Photos</Link></div>
-                <div className='introOpt'><Link to="/" style={{textDecoration:'none',color: 'inherit' }}>Home</Link></div>
-            </div>
-        </div>
-    </div>
-  )
-}
+  const handleSocialClick = (url) => {
+    window.open(url, "_blank");
+  };
 
-export default Footer
+  const currentYear = new Date().getFullYear();
+
+  return (
+    <footer className="footer">
+      {/* Call to Action Section */}
+      <div className="footer-cta">
+        <div className="footer-cta-content">
+          <h2 className="footer-cta-title">Ready for Your Perfect Getaway?</h2>
+          <p className="footer-cta-subtitle">
+            Experience luxury and tranquility at Rustic Farm Villa
+          </p>
+          <Link to="/ContactUs" className="footer-cta-btn">
+            Book Your Stay
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="footer-main">
+        <div className="footer-container">
+          {/* Brand Section */}
+          <div className="footer-brand">
+            <Link to="/" className="footer-logo">
+              <h3>Rustic Farm Villa</h3>
+            </Link>
+            <p className="footer-description">
+              Escape to luxury in the heart of nature. Where rustic charm meets
+              modern elegance for an unforgettable experience.
+            </p>
+            <div className="footer-social">
+              <button
+                className="social-icon"
+                onClick={() =>
+                  handleSocialClick(
+                    "https://www.instagram.com/rustic.farm.villa?igshid=YTQwZjQ0NmI0OA=="
+                  )
+                }
+                aria-label="Follow us on Instagram"
+              >
+                <img src={instagram} alt="Instagram" />
+              </button>
+              <button
+                className="social-icon"
+                onClick={() =>
+                  handleSocialClick(
+                    "https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu"
+                  )
+                }
+                aria-label="Visit our location"
+              >
+                <img src={location} alt="Location" />
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/AboutUs">About Us</Link>
+              </li>
+              <li>
+                <Link to="/Photos">Gallery</Link>
+              </li>
+              <li>
+                <Link to="/ContactUs">Contact</Link>
+              </li>
+              <li>
+                <div className="footer-link">Services</div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div className="footer-services">
+            <h4>Our Services</h4>
+            <ul>
+              <li>Luxury Accommodation</li>
+              <li>Fine Dining</li>
+              <li>Event Hosting</li>
+              <li>Nature Tours</li>
+              <li>Spa & Wellness</li>
+            </ul>
+          </div>
+
+          {/* Contact Info */}
+          <div className="footer-contact">
+            <h4>Get in Touch</h4>
+            <div className="contact-info">
+              <p>📍 Wada, Mandwa, Maharashtra</p>
+              <p>📞 +91 XXX XXX XXXX</p>
+              <p>✉️ info@rusticfarmvilla.com</p>
+            </div>
+            <Link to="/ContactUs" className="contact-btn">
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Bottom */}
+      <div className="footer-bottom">
+        <div className="footer-container">
+          <div className="footer-bottom-content">
+            <p>&copy; {currentYear} Rustic Farm Villa. All rights reserved.</p>
+            <div className="footer-bottom-links">
+              <span>Privacy Policy</span>
+              <span>Terms of Service</span>
+              <span>Cookie Policy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

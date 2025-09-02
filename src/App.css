@@ -1,14 +1,58 @@
 @font-face {
-    font-family: Regular; /* Replace 'YourCustomFont' with a name for your font */
+    font-family: Regular;
     src: url('./font/Roboto/Roboto-Regular.ttf') 
 }
 
 @font-face {
-    font-family: Roboto-Bold; /* Replace 'YourCustomFont' with a name for your font */
+    font-family: Roboto-Bold;
     src: url('./font/Roboto/Roboto-Bold.ttf') 
 }
 
 @font-face {
-    font-family: Roboto-Light; /* Replace 'YourCustomFont' with a name for your font */
+    font-family: Roboto-Light;
     src: url('./font/Roboto/Roboto-Light.ttf') 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Regular, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+}
+
+.App {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Modern scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #817f76, #a8a596);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #a8a596, #817f76);
 }
