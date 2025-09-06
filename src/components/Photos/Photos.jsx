@@ -2,24 +2,69 @@ import React, { useState } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import "./Photos.css";
+// Gallery Images
 import dinningTable from "../../images/GalleryImages/diningTable.jpeg";
+import group1 from "../../images/GalleryImages/group1.jpeg";
+import kid1 from "../../images/GalleryImages/kid1.jpeg";
 import outdoor1 from "../../images/GalleryImages/outdoor1.jpeg";
 import outdoor2 from "../../images/GalleryImages/outdoor2.jpeg";
 import outdoor3 from "../../images/GalleryImages/outdoor3.jpeg";
 import outdoor4 from "../../images/GalleryImages/outdoor4.jpeg";
+import outdoor5 from "../../images/GalleryImages/outdoor5.jpeg";
+import outdoor6 from "../../images/GalleryImages/outdoor6.jpeg";
 import tent1 from "../../images/GalleryImages/tent1.jpeg";
+import tent2 from "../../images/GalleryImages/tent2.jpeg";
+// Villa Images
+import bedroom1 from "../../images/villa_images/bedroom1.jpeg";
+import blackSheetBDR from "../../images/villa_images/blackSheetBDR.jpeg";
+import food from "../../images/villa_images/food.png";
+import lightBGBedroom from "../../images/villa_images/lightBGBedroom.jpeg";
+import livingRoom from "../../images/villa_images/living_room.jpeg";
+import prettyBedroom from "../../images/villa_images/prettyBedroom.jpeg";
 
 const Photos = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("all");
 
   const galleryImages = [
+    // Interior Spaces
+    { src: livingRoom, alt: "Luxurious Living Room", category: "interior" },
+    { src: lightBGBedroom, alt: "Bright & Airy Bedroom", category: "interior" },
+    { src: blackSheetBDR, alt: "Elegant Master Bedroom", category: "interior" },
+    { src: prettyBedroom, alt: "Cozy Bedroom", category: "interior" },
+    { src: bedroom1, alt: "Comfortable Guest Room", category: "interior" },
     { src: dinningTable, alt: "Elegant Dining Area", category: "interior" },
-    { src: outdoor1, alt: "Beautiful Outdoor Space", category: "outdoor" },
-    { src: outdoor2, alt: "Garden View", category: "outdoor" },
-    { src: outdoor3, alt: "Nature Surroundings", category: "outdoor" },
-    { src: outdoor4, alt: "Outdoor Activities", category: "outdoor" },
+
+    // Outdoor Spaces
+    { src: outdoor1, alt: "Beautiful Pool Area", category: "outdoor" },
+    { src: outdoor2, alt: "Garden & Landscape", category: "outdoor" },
+    { src: outdoor3, alt: "Outdoor Seating Area", category: "outdoor" },
+    { src: outdoor4, alt: "Villa Exterior View", category: "outdoor" },
+    { src: outdoor5, alt: "Peaceful Garden Space", category: "outdoor" },
+    { src: outdoor6, alt: "Natural Surroundings", category: "outdoor" },
+
+    // Activities & Experiences
     { src: tent1, alt: "Camping Experience", category: "activities" },
+    { src: tent2, alt: "Outdoor Adventures", category: "activities" },
+    { src: group1, alt: "Group Gatherings", category: "activities" },
+    { src: kid1, alt: "Family Fun Activities", category: "activities" },
+
+    // Dining & Culinary
+    { src: food, alt: "Delicious Local Cuisine", category: "dining" },
   ];
+
+  const categories = [
+    { key: "all", label: "All Photos" },
+    { key: "interior", label: "Interior" },
+    { key: "outdoor", label: "Outdoor" },
+    { key: "activities", label: "Activities" },
+    { key: "dining", label: "Dining" },
+  ];
+
+  const filteredImages =
+    activeFilter === "all"
+      ? galleryImages
+      : galleryImages.filter((image) => image.category === activeFilter);
 
   const openLightbox = (image) => {
     setSelectedImage(image);
@@ -54,9 +99,26 @@ const Photos = () => {
         </div>
       </div>
 
+      {/* Category Filter */}
+      <div className="gallery-filters">
+        <div className="filter-buttons">
+          {categories.map((category) => (
+            <button
+              key={category.key}
+              className={`filter-btn ${
+                activeFilter === category.key ? "active" : ""
+              }`}
+              onClick={() => setActiveFilter(category.key)}
+            >
+              {category.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="gallery-container">
         <div className="gallery-grid">
-          {galleryImages.map((image, index) => (
+          {filteredImages.map((image, index) => (
             <div
               key={index}
               className="gallery-item"
