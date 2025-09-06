@@ -103,7 +103,7 @@ const Footer = () => {
             <h4>Get in Touch</h4>
             <div className="contact-info">
               <p>📍 Wada, Mandwa, Maharashtra</p>
-              <p>📞 +91 XXX XXX XXXX</p>
+              <p>📞 +91 8108266499</p>
               <p>✉️ info@rusticfarmvilla.com</p>
             </div>
             <Link to="/ContactUs" className="contact-btn">
