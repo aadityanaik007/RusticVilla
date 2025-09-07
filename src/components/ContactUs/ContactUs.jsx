@@ -37,7 +37,7 @@ const ContactUs = () => {
 
     try {
       // Initialize EmailJS with your public key
-      emailjs.init("rlaXuSR8pVY3LEDbR");
+      emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
 
       // Create the default booking message
       const defaultMessage = `Hello,
@@ -64,14 +64,14 @@ Rustic Booking Manager`;
         check_out: formData.checkOut,
         guests: formData.guests,
         message: defaultMessage,
-        to_email: "aadityasnaik007@gmail.com",
+        to_email: process.env.REACT_APP_TO_EMAIL,
       };
 
       console.log("Sending email with params:", templateParams);
 
       const result = await emailjs.send(
-        "service_q3rccnb", // Your Service ID
-        "template_vg4usxr", // Your Template ID
+        process.env.REACT_APP_EMAILJS_SERVICE_ID, // Service ID from env
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // Template ID from env
         templateParams
       );
 
