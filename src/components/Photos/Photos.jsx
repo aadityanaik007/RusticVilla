@@ -21,6 +21,15 @@ import food from "../../images/villa_images/food.png";
 import lightBGBedroom from "../../images/villa_images/lightBGBedroom.jpeg";
 import livingRoom from "../../images/villa_images/living_room.jpeg";
 import prettyBedroom from "../../images/villa_images/prettyBedroom.jpeg";
+// First Floor Images
+import animals from "../../images/FirstFloor/animals.jpeg";
+import doll2 from "../../images/FirstFloor/doll2.jpeg";
+import doll3 from "../../images/FirstFloor/doll3.jpeg";
+import doll4 from "../../images/FirstFloor/doll4.jpeg";
+import dolls from "../../images/FirstFloor/dolls.jpeg";
+import miniatures from "../../images/FirstFloor/miniatures.jpeg";
+import teddy2 from "../../images/FirstFloor/teddy2.jpeg";
+import teddybear from "../../images/FirstFloor/teddybear.jpeg";
 
 const Photos = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -51,6 +60,20 @@ const Photos = () => {
 
     // Dining & Culinary
     { src: food, alt: "Delicious Local Cuisine", category: "dining" },
+
+    // First Floor - Toys & Decorations
+    {
+      src: teddybear,
+      alt: "Adorable Teddy Bear Collection",
+      category: "firstfloor",
+    },
+    { src: teddy2, alt: "Plush Teddy Bears", category: "firstfloor" },
+    { src: dolls, alt: "Charming Doll Display", category: "firstfloor" },
+    { src: doll2, alt: "Decorative Dolls", category: "firstfloor" },
+    { src: doll3, alt: "Traditional Doll Collection", category: "firstfloor" },
+    { src: doll4, alt: "Artistic Doll Arrangement", category: "firstfloor" },
+    { src: animals, alt: "Animal Figurines", category: "firstfloor" },
+    { src: miniatures, alt: "Miniature Collection", category: "firstfloor" },
   ];
 
   const categories = [
@@ -59,6 +82,7 @@ const Photos = () => {
     { key: "outdoor", label: "Outdoor" },
     { key: "activities", label: "Activities" },
     { key: "dining", label: "Dining" },
+    { key: "firstfloor", label: "First Floor" },
   ];
 
   const filteredImages =

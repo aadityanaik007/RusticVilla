@@ -155,6 +155,17 @@
     transition: all 0.3s ease;
 }
 
+.social-btn svg {
+    width: 16px;
+    height: 16px;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover svg {
+    color: #f0f0f0;
+}
+
 .book-now-btn {
     background: linear-gradient(135deg, #817f76, #a8a596);
     color: white;

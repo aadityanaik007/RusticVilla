@@ -43,7 +43,7 @@ const Footer = () => {
                 className="social-icon"
                 onClick={() =>
                   handleSocialClick(
-                    "https://www.instagram.com/rustic.farm.villa?igshid=YTQwZjQ0NmI0OA=="
+                    "https://www.instagram.com/rusticfarmvilla/"
                   )
                 }
                 aria-label="Follow us on Instagram"
