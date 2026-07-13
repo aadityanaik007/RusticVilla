@@ -1,0 +1,12 @@
+.reviews-page {
+    background: linear-gradient(135deg, var(--rfv-cream) 0%, var(--rfv-sage-soft) 100%);
+    color: var(--rfv-text);
+    min-height: 100vh;
+    padding-top: 100px;
+}
+
+@media (max-width: 768px) {
+    .reviews-page {
+        padding-top: 90px;
+    }
+}

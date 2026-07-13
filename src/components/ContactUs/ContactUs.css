@@ -1,13 +1,13 @@
 .contact-page {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--rfv-cream) 0%, var(--rfv-sage-soft) 100%);
+    color: var(--rfv-text);
     min-height: 100vh;
 }
 
 .contact-hero {
     position: relative;
     height: 60vh;
-    background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+    background: linear-gradient(135deg, var(--rfv-sage-soft), var(--rfv-cream));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +21,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(129, 127, 118, 0.2), rgba(26, 26, 26, 0.8));
+    background: radial-gradient(circle, rgba(201, 163, 90, 0.12), rgba(207, 224, 210, 0.4));
 }
 
 .contact-hero-content {
@@ -36,7 +36,7 @@
     font-family: Roboto-Bold, 'Calibri';
     font-size: 3.5rem;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    background: linear-gradient(135deg, var(--rfv-forest), var(--rfv-forest-soft));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -46,7 +46,7 @@
 .contact-hero-subtitle {
     font-family: Roboto-Light;
     font-size: 1.3rem;
-    color: #e0e0e0;
+    color: var(--rfv-text-muted);
     animation: fadeInUp 1s ease-out 0.2s both;
 }
 
@@ -64,11 +64,11 @@
 }
 
 .contact-section {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.55);
     border-radius: 20px;
     padding: 3rem;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(47, 74, 58, 0.15);
     margin-bottom: 2rem;
 }
 
@@ -76,7 +76,7 @@
     font-family: Roboto-Bold;
     font-size: 2.2rem;
     margin-bottom: 2rem;
-    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    background: linear-gradient(135deg, var(--rfv-forest), var(--rfv-forest-soft));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -93,19 +93,19 @@
     align-items: flex-start;
     gap: 1rem;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.45);
     border-radius: 10px;
     transition: all 0.3s ease;
 }
 
 .contact-item:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.75);
     transform: translateY(-2px);
 }
 
 .contact-icon {
     font-size: 1.5rem;
-    background: linear-gradient(135deg, #817f76, #a8a596);
+    background: linear-gradient(135deg, var(--rfv-gold), var(--rfv-gold-soft));
     padding: 0.8rem;
     border-radius: 10px;
     min-width: 50px;
@@ -116,22 +116,22 @@
     font-family: Roboto-Bold;
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
-    color: #ffffff;
+    color: var(--rfv-text);
 }
 
 .contact-text p {
     font-family: Regular;
     font-size: 0.95rem;
     line-height: 1.6;
-    color: #d0d0d0;
+    color: var(--rfv-text-muted);
 }
 
 .map-section {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.55);
     border-radius: 20px;
     padding: 2rem;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(47, 74, 58, 0.15);
 }
 
 .map-section h3 {
@@ -139,66 +139,59 @@
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #ffffff;
+    color: var(--rfv-text);
 }
 
 .map-container {
     position: relative;
     border-radius: 15px;
     overflow: hidden;
-    cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.map-container:hover {
-    transform: scale(1.02);
-}
-
-.map-image {
+.map-embed {
     width: 100%;
     height: 300px;
-    object-fit: cover;
-    transition: all 0.3s ease;
+    border: 0;
+    display: block;
+    filter: grayscale(0.2) contrast(1.05);
 }
 
-.map-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(26, 26, 26, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.3s ease;
-}
-
-.map-container:hover .map-overlay {
-    opacity: 1;
-}
-
-.map-overlay p {
-    font-family: Roboto-Bold;
-    font-size: 1.1rem;
-    color: white;
+.map-open-link {
+    display: block;
     text-align: center;
+    margin-top: 1rem;
+    color: var(--rfv-gold-soft);
+    font-family: Roboto-Bold;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.map-open-link:hover {
+    color: var(--rfv-gold);
+}
+
+.contact-link {
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: var(--rfv-gold-soft);
 }
 
 .form-section {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.55);
     border-radius: 20px;
     padding: 3rem;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(47, 74, 58, 0.15);
 }
 
 .form-title {
     font-family: Roboto-Bold;
     font-size: 2.2rem;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    background: linear-gradient(135deg, var(--rfv-forest), var(--rfv-forest-soft));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -207,7 +200,7 @@
 .form-subtitle {
     font-family: Regular;
     font-size: 1rem;
-    color: #d0d0d0;
+    color: var(--rfv-text-muted);
     margin-bottom: 2rem;
 }
 
@@ -232,17 +225,24 @@
     font-family: Roboto-Bold;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
-    color: #ffffff;
+    color: var(--rfv-text);
+}
+
+.booking-dates-summary {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--rfv-forest);
+    font-family: Roboto-Bold;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     padding: 0.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(47, 74, 58, 0.25);
     border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--rfv-text);
     font-family: Regular;
     font-size: 0.9rem;
     transition: all 0.3s ease;
@@ -250,14 +250,14 @@
 
 /* Specific styling for select dropdown */
 .form-group select {
-    background: rgba(40, 40, 40, 0.9);
-    color: white;
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--rfv-text);
     cursor: pointer;
 }
 
 .form-group select option {
-    background: #2d2d2d;
-    color: white;
+    background: var(--rfv-cream);
+    color: var(--rfv-text);
     padding: 0.5rem;
 }
 
@@ -265,24 +265,24 @@
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #817f76;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 2px rgba(129, 127, 118, 0.3);
+    border-color: var(--rfv-gold);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 2px rgba(201, 163, 90, 0.3);
 }
 
 /* Focus state for select */
 .form-group select:focus {
-    background: rgba(50, 50, 50, 0.9);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(47, 74, 58, 0.45);
 }
 
 .submit-btn {
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, #817f76, #a8a596);
+    background: linear-gradient(135deg, var(--rfv-gold), var(--rfv-gold-soft));
     color: white;
     border: none;
     border-radius: 30px;
@@ -293,13 +293,13 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-top: 1rem;
-    box-shadow: 0 4px 15px rgba(129, 127, 118, 0.3);
+    box-shadow: 0 4px 15px rgba(201, 163, 90, 0.3);
 }
 
 .submit-btn:hover {
-    background: linear-gradient(135deg, #a8a596, #817f76);
+    background: linear-gradient(135deg, var(--rfv-gold-soft), var(--rfv-gold));
     transform: translateY(-3px);
-    box-shadow: 0 6px 25px rgba(129, 127, 118, 0.5);
+    box-shadow: 0 6px 25px rgba(201, 163, 90, 0.5);
 }
 
 /* Animations */
@@ -343,8 +343,8 @@
 }
 
 .submit-btn:disabled:hover {
-    background: linear-gradient(135deg, #817f76, #a8a596);
-    box-shadow: 0 4px 15px rgba(129, 127, 118, 0.3);
+    background: linear-gradient(135deg, var(--rfv-gold), var(--rfv-gold-soft));
+    box-shadow: 0 4px 15px rgba(201, 163, 90, 0.3);
     transform: none !important;
 }
 

@@ -1,11 +1,31 @@
 import React, { useState } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Seo from "../SEO/Seo";
+import WeatherWidget from "../WeatherWidget/WeatherWidget";
+import BookingCalendar from "../BookingCalendar/BookingCalendar";
 import "./ContactUs.css";
-import locationImg from "../../images/villa_images/locationImg.png";
-import emailjs from "@emailjs/browser";
+import { TEXT_DEFAULTS } from "../../data/siteDefaults";
+import { useSiteText } from "../../context/SiteContentContext";
+
+const API_BASE = process.env.REACT_APP_BOOKING_API_URL;
 
 const ContactUs = () => {
+  const address = useSiteText("contact.address", TEXT_DEFAULTS["contact.address"]);
+  const phoneFrontDesk = useSiteText(
+    "contact.phone_front_desk",
+    TEXT_DEFAULTS["contact.phone_front_desk"]
+  );
+  const phoneReservations = useSiteText(
+    "contact.phone_reservations",
+    TEXT_DEFAULTS["contact.phone_reservations"]
+  );
+  const whatsappNumber = useSiteText(
+    "contact.whatsapp_number",
+    TEXT_DEFAULTS["contact.whatsapp_number"]
+  );
+  const mapsUrl = useSiteText("contact.maps_url", TEXT_DEFAULTS["contact.maps_url"]);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,6 +33,7 @@ const ContactUs = () => {
     checkIn: "",
     checkOut: "",
     guests: 1,
+    packageType: "",
     message: "",
   });
 
@@ -27,55 +48,54 @@ const ContactUs = () => {
     }));
   };
 
+  const handleDatesChange = (checkIn, checkOut) => {
+    setFormData((prev) => ({ ...prev, checkIn, checkOut }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.checkIn || !formData.checkOut) {
+      alert("Please select both a check-in and check-out date on the calendar.");
+      return;
+    }
+
+    if (!API_BASE) {
+      alert(
+        "Online booking requests aren't available yet. Please contact us directly by phone or WhatsApp."
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus("");
 
-    // Debug: Log form data
-    console.log("Form Data:", formData);
-
     try {
-      // Initialize EmailJS with your public key
-      emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
-
-      // Create the default booking message
-      const defaultMessage = `Hello,
-The person: ${formData.name} wants to book the villa from ${
-        formData.checkIn
-      } to ${formData.checkOut}. Number of guests: ${
-        formData.guests
-      }. Here's his phone number ${formData.phone} and his email ID: ${
-        formData.email
+      // Creates a pending booking (shows up in Admin -> Bookings) and
+      // triggers both the guest confirmation and admin notification emails
+      // server-side via Brevo.
+      const res = await fetch(`${API_BASE}/api/bookings/request`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          check_in: formData.checkIn,
+          check_out: formData.checkOut,
+          guest_name: formData.name,
+          guest_email: formData.email,
+          guest_phone: formData.phone,
+          guests: Number(formData.guests) || null,
+          package: formData.packageType || null,
+          message: formData.message || null,
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(
+          data.detail ||
+            "Those dates could not be requested. Please pick different dates."
+        );
       }
 
-${formData.message ? `Additional Message: ${formData.message}` : ""}
-
-Best Regards,
-Rustic Booking Manager`;
-
-      // EmailJS configuration
-      const templateParams = {
-        title: "New Booking Request from Rustic Farm Villa Website",
-        from_name: formData.name,
-        from_email: formData.email,
-        phone: formData.phone,
-        check_in: formData.checkIn,
-        check_out: formData.checkOut,
-        guests: formData.guests,
-        message: defaultMessage,
-        to_email: process.env.REACT_APP_TO_EMAIL,
-      };
-
-      console.log("Sending email with params:", templateParams);
-
-      const result = await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID, // Service ID from env
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID, // Template ID from env
-        templateParams
-      );
-
-      console.log("Email sent successfully:", result);
       setSubmitStatus("success");
 
       // Reset form with a small delay to show success message
@@ -87,28 +107,15 @@ Rustic Booking Manager`;
           checkIn: "",
           checkOut: "",
           guests: 1,
+          packageType: "",
           message: "",
         });
         setSubmitStatus(""); // Clear success message after form reset
       }, 3000);
     } catch (error) {
-      console.error("Detailed error:", error);
+      console.error("Booking submission failed:", error);
       setSubmitStatus("error");
-
-      // Enhanced error logging
-      console.error("Error details:", {
-        message: error.message,
-        text: error.text,
-        status: error.status,
-        response: error.response,
-      });
-
-      // Show detailed error message for debugging
-      alert(
-        `Email sending failed: ${
-          error.text || error.message || "Unknown error"
-        }`
-      );
+      alert(error.message || "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -116,6 +123,11 @@ Rustic Booking Manager`;
 
   return (
     <div className="contact-page">
+      <Seo
+        title="Contact Us"
+        description="Get in touch with Rustic Farm Villa in Mandva, Wada to book your stay. Call, WhatsApp, or send an enquiry and we'll respond within 24 hours."
+        path="/contact"
+      />
       <Header />
 
       <div className="contact-hero">
@@ -129,6 +141,8 @@ Rustic Booking Manager`;
       </div>
 
       <div className="contact-container">
+        <WeatherWidget />
+
         <div className="contact-content">
           <div className="contact-info">
             <div className="contact-section">
@@ -142,18 +156,8 @@ Rustic Booking Manager`;
                     <p>
                       Rustic Farm Villa
                       <br />
-                      Near Mandawa Grampanchayat,
-                      <br />
-                      Mandva, Wada, Maharashtra 421303, India
+                      {address}
                     </p>
-                  </div>
-                </div>
-
-                <div className="contact-item">
-                  <div className="contact-icon">📞</div>
-                  <div className="contact-text">
-                    <h3>Phone</h3>
-                    <p>+(91) 8108-266-499</p>
                   </div>
                 </div>
 
@@ -161,7 +165,14 @@ Rustic Booking Manager`;
                   <div className="contact-icon">🏨</div>
                   <div className="contact-text">
                     <h3>Front Desk</h3>
-                    <p>+(91) 8108266499</p>
+                    <p>
+                      <a
+                        href={`tel:${phoneFrontDesk.replace(/\s+/g, "")}`}
+                        className="contact-link"
+                      >
+                        {phoneFrontDesk}
+                      </a>
+                    </p>
                   </div>
                 </div>
 
@@ -169,18 +180,32 @@ Rustic Booking Manager`;
                   <div className="contact-icon">📅</div>
                   <div className="contact-text">
                     <h3>Reservations</h3>
-                    <p>+(91) 8108-266-399</p>
+                    <p>
+                      <a
+                        href={`tel:${phoneReservations.replace(/\s+/g, "")}`}
+                        className="contact-link"
+                      >
+                        {phoneReservations}
+                      </a>
+                    </p>
                   </div>
                 </div>
 
                 <div className="contact-item">
-                  <div className="contact-icon">🚗</div>
+                  <div className="contact-icon">💬</div>
                   <div className="contact-text">
-                    <h3>Airport Transfer</h3>
+                    <h3>WhatsApp</h3>
                     <p>
-                      Need transportation? Contact us at
-                      <br />
-                      +(91) 8452-989-433
+                      <a
+                        href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                          "Hi, I'd like to enquire about booking Rustic Farm Villa."
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="contact-link"
+                      >
+                        Chat with us instantly
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -190,21 +215,23 @@ Rustic Booking Manager`;
             <div className="map-section">
               <h3>Find Us</h3>
               <div className="map-container">
-                <img
-                  src={locationImg}
-                  alt="Villa Location"
-                  className="map-image"
-                  onClick={() => {
-                    window.open(
-                      "https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu",
-                      "_blank"
-                    );
-                  }}
-                />
-                <div className="map-overlay">
-                  <p>Click to view in Google Maps</p>
-                </div>
+                <iframe
+                  title="Rustic Farm Villa Location"
+                  className="map-embed"
+                  src="https://www.google.com/maps?q=19.7019817,73.2099689&z=15&output=embed"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                ></iframe>
               </div>
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="map-open-link"
+              >
+                Open in Google Maps ↗
+              </a>
             </div>
           </div>
 
@@ -218,8 +245,9 @@ Rustic Booking Manager`;
 
               {submitStatus === "success" && (
                 <div className="success-message">
-                  ✅ Thank you! Your booking request has been sent successfully.
-                  We'll contact you soon!
+                  ✅ Thank you! Your booking request has been received. Check
+                  your email for a confirmation — we'll be in touch within 24
+                  hours to confirm availability.
                 </div>
               )}
 
@@ -285,29 +313,37 @@ Rustic Booking Manager`;
                   </div>
                 </div>
 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="checkIn">Check-in Date</label>
-                    <input
-                      type="date"
-                      id="checkIn"
-                      name="checkIn"
-                      value={formData.checkIn}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="checkOut">Check-out Date</label>
-                    <input
-                      type="date"
-                      id="checkOut"
-                      name="checkOut"
-                      value={formData.checkOut}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
+                <div className="form-group">
+                  <label htmlFor="packageType">Package</label>
+                  <select
+                    id="packageType"
+                    name="packageType"
+                    value={formData.packageType}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">Select a package (optional)</option>
+                    <option value="Weekend Getaway (₹1,800 per person)">
+                      Weekend Getaway (₹1,800 per person)
+                    </option>
+                    <option value="Celebration Package (Contact for price)">
+                      Celebration Package (Contact for price)
+                    </option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>Check-in &amp; Check-out Dates</label>
+                  <BookingCalendar
+                    checkIn={formData.checkIn}
+                    checkOut={formData.checkOut}
+                    onChange={handleDatesChange}
+                  />
+                  {(formData.checkIn || formData.checkOut) && (
+                    <p className="booking-dates-summary">
+                      {formData.checkIn || "Select check-in"} →{" "}
+                      {formData.checkOut || "Select check-out"}
+                    </p>
+                  )}
                 </div>
 
                 <div className="form-group">

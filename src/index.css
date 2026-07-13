@@ -1,4 +1,20 @@
-* { 
+:root {
+  /* Brand palette: Sage, Cream, Forest Green, Gold, Black (nav/hero only) */
+  --rfv-black: #1a1a1a;
+  --rfv-black-soft: #2d2d2d;
+  --rfv-gold: #d6883a;
+  --rfv-gold-soft: #f0a95c;
+  --rfv-forest: #2f4a3a;
+  --rfv-forest-soft: #3f6350;
+  --rfv-cream: #f7f2e6;
+  --rfv-sage: #cfe0d2;
+  --rfv-sage-soft: #e3ecdf;
+  --rfv-white: #ffffff;
+  --rfv-text: #2f3d33;
+  --rfv-text-muted: #5a6b5f;
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -7,8 +23,8 @@
 }
 
 body {
-  background-color: rgb(29,29,27);
-  color: white;
+  background-color: var(--rfv-cream);
+  color: var(--rfv-text);
   overflow: hidden;
   overflow-y: scroll;
 }

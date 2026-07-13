@@ -10,6 +10,7 @@
 
 # production
 /build
+/BRD
 
 # misc
 .DS_Store
@@ -22,3 +23,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# backend (Python/FastAPI)
+backend/**/__pycache__/
+*.pyc
+backend/*.db
+backend/.vercel
+backend/venv/
+

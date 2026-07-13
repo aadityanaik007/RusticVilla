@@ -1,22 +1,51 @@
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Seo from "../SEO/Seo";
 import "./AboutUs.css";
-import prettyBedroom from "../../images/villa_images/prettyBedroom.jpeg";
-import livingRoom from "../../images/villa_images/living_room.jpeg";
-import lightBGBedroom from "../../images/villa_images/lightBGBedroom.jpeg";
+import { TEXT_DEFAULTS, IMAGE_DEFAULTS } from "../../data/siteDefaults";
+import { useSiteText, useSiteImage } from "../../context/SiteContentContext";
 
 const AboutUs = () => {
+  const heroSubtitle = useSiteText(
+    "about.hero.subtitle",
+    TEXT_DEFAULTS["about.hero.subtitle"]
+  );
+  const storyParagraph1 = useSiteText(
+    "about.story.paragraph1",
+    TEXT_DEFAULTS["about.story.paragraph1"]
+  );
+  const storyParagraph2 = useSiteText(
+    "about.story.paragraph2",
+    TEXT_DEFAULTS["about.story.paragraph2"]
+  );
+  const vintageParagraph1 = useSiteText(
+    "about.vintage.paragraph1",
+    TEXT_DEFAULTS["about.vintage.paragraph1"]
+  );
+  const vintageParagraph2 = useSiteText(
+    "about.vintage.paragraph2",
+    TEXT_DEFAULTS["about.vintage.paragraph2"]
+  );
+  const storyImage = useSiteImage("about.story", IMAGE_DEFAULTS["about.story"]);
+  const vintageImage = useSiteImage(
+    "about.vintage",
+    IMAGE_DEFAULTS["about.vintage"]
+  );
+
   return (
     <div className="about-page">
+      <Seo
+        title="About Us"
+        description="Learn the story behind Rustic Farm Villa — a vintage-inspired farmhouse in Wada, Palghar, Maharashtra, blending rustic charm with modern luxury amid nature."
+        path="/about"
+      />
       <Header />
       <div className="hero-section-about">
         <div className="hero-content-about">
           <h1 className="hero-title-about">About Rustic Farm Villa</h1>
-          <p className="hero-subtitle-about">Where nature meets luxury</p>
+          <p className="hero-subtitle-about">{heroSubtitle}</p>
         </div>
-        <div className="hero-overlay-about"></div>
-        <img src={livingRoom} alt="Villa Overview" className="hero-bg-about" />
       </div>
 
       <div className="about-content">
@@ -24,45 +53,26 @@ const AboutUs = () => {
           <div className="about-text">
             <h2 className="section-title">Our Story</h2>
             <div className="section-content">
-              <p>
-                Welcome to our enchanting villa nestled in the serene outskirts
-                of Wada, Palghar, Maharashtra. Surrounded by the breathtaking
-                beauty of nature, our villa is a hidden gem situated amidst lush
-                greenery and majestic trees.
-              </p>
+              <p>{storyParagraph1}</p>
 
-              <p>
-                The picturesque location provides a tranquil escape from the
-                hustle and bustle of city life, offering a perfect retreat for
-                those seeking peace and relaxation.
-              </p>
+              <p>{storyParagraph2}</p>
             </div>
           </div>
           <div className="about-image">
-            <img src={prettyBedroom} alt="Elegant Bedroom" />
+            <img src={storyImage.src} alt={storyImage.alt} />
           </div>
         </div>
 
         <div className="about-section reverse">
           <div className="about-image">
-            <img src={lightBGBedroom} alt="Comfortable Living" />
+            <img src={vintageImage.src} alt={vintageImage.alt} />
           </div>
           <div className="about-text">
             <h2 className="section-title">Vintage Charm</h2>
             <div className="section-content">
-              <p>
-                As you step into our vintage-inspired villa, you'll be
-                captivated by its timeless charm. The architecture exudes a
-                classic elegance, creating an atmosphere of warmth and
-                nostalgia.
-              </p>
+              <p>{vintageParagraph1}</p>
 
-              <p>
-                The villa is designed to seamlessly blend with its natural
-                surroundings, offering guests a unique and immersive experience.
-                With spacious interiors and thoughtful detailing, every corner
-                tells a story.
-              </p>
+              <p>{vintageParagraph2}</p>
             </div>
           </div>
         </div>

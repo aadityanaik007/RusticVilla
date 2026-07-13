@@ -1,9 +1,16 @@
 import React from "react";
 import "./Intro.css";
-import livingRoom from "../../images/villa_images/living_room.jpeg";
 import { Link } from "react-router-dom";
+import { TEXT_DEFAULTS, IMAGE_DEFAULTS } from "../../data/siteDefaults";
+import { useSiteText, useSiteImage } from "../../context/SiteContentContext";
 
 const Intro = () => {
+  const heroQuote = useSiteText(
+    "home.hero.quote",
+    TEXT_DEFAULTS["home.hero.quote"]
+  );
+  const heroImage = useSiteImage("home.hero", IMAGE_DEFAULTS["home.hero"]);
+
   const scrollToNextSection = () => {
     const nextSection = document.querySelector(".Body");
     if (nextSection) {
@@ -14,27 +21,18 @@ const Intro = () => {
   return (
     <div className="intro-container">
       <div className="hero-background">
-        <img src={livingRoom} alt="Rustic Farm Villa" className="hero-image" />
+        <img src={heroImage.src} alt={heroImage.alt} className="hero-image" />
         <div className="hero-overlay"></div>
       </div>
       <div className="hero-content">
         <div className="hero-text">
           <h1 className="hero-title">Welcome to Rustic Farm Villa</h1>
-          <p className="hero-subtitle">
-            Exceptional design. Extraordinary service.
-          </p>
-          <div className="hero-description">
-            <p>
-              Experience luxury in the heart of nature. Our villa offers the
-              perfect blend of rustic charm and modern comfort, creating
-              unforgettable memories for you and your loved ones.
-            </p>
-          </div>
+          <p className="hero-quote">{heroQuote}</p>
           <div className="hero-buttons">
-            <Link to="/ContactUs" className="btn-primary">
+            <Link to="/contact" className="btn-primary">
               Book Your Stay
             </Link>
-            <Link to="/Photos" className="btn-secondary">
+            <Link to="/gallery" className="btn-secondary">
               Explore Gallery
             </Link>
           </div>

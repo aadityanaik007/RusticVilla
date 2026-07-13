@@ -2,11 +2,23 @@ import React, { useEffect, useState } from "react";
 import "./Header.css";
 import instagram from "../../images/insta.png";
 import location from "../../images/location.png";
+import logo from "../../images/logo/logo.jpeg";
 import { Link } from "react-router-dom";
+import { TEXT_DEFAULTS } from "../../data/siteDefaults";
+import { useSiteText } from "../../context/SiteContentContext";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const facebookUrl = useSiteText(
+    "contact.facebook_url",
+    TEXT_DEFAULTS["contact.facebook_url"]
+  );
+  const instagramUrl = useSiteText(
+    "contact.instagram_url",
+    TEXT_DEFAULTS["contact.instagram_url"]
+  );
+  const mapsUrl = useSiteText("contact.maps_url", TEXT_DEFAULTS["contact.maps_url"]);
 
   useEffect(() => {
     // Scroll to the top of the page after navigation
@@ -30,7 +42,7 @@ const Header = () => {
       <div className="header-container">
         <div className="header-logo">
           <Link to="/" className="logo-link">
-            <h1>RFV</h1>
+            <img src={logo} alt="Rustic Farm Villa" className="logo-image" />
           </Link>
         </div>
 
@@ -39,16 +51,22 @@ const Header = () => {
           <Link to="/" className="nav-link">
             Home
           </Link>
-          <Link to="/Photos" className="nav-link">
+          <Link to="/about" className="nav-link">
+            About
+          </Link>
+          <Link to="/stay" className="nav-link">
+            Stay
+          </Link>
+          <Link to="/gallery" className="nav-link">
             Gallery
           </Link>
-          <Link to="/AboutUs" className="nav-link">
-            About Us
+          <Link to="/packages" className="nav-link">
+            Packages
           </Link>
-          <Link to="/Services" className="nav-link">
-            Services
+          <Link to="/reviews" className="nav-link">
+            Reviews
           </Link>
-          <Link to="/ContactUs" className="nav-link">
+          <Link to="/contact" className="nav-link">
             Contact
           </Link>
         </nav>
@@ -57,11 +75,7 @@ const Header = () => {
         <div className="header-social">
           <button
             className="social-btn"
-            onClick={() =>
-              handleSocialClick(
-                "https://www.facebook.com/profile.php?id=61580996151085"
-              )
-            }
+            onClick={() => handleSocialClick(facebookUrl)}
             aria-label="Visit our Facebook"
           >
             <svg
@@ -76,20 +90,14 @@ const Header = () => {
           </button>
           <button
             className="social-btn"
-            onClick={() =>
-              handleSocialClick("https://www.instagram.com/rusticfarmvilla/")
-            }
+            onClick={() => handleSocialClick(instagramUrl)}
             aria-label="Visit our Instagram"
           >
             <img src={instagram} alt="Instagram" />
           </button>
           <button
             className="social-btn"
-            onClick={() =>
-              handleSocialClick(
-                "https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu"
-              )
-            }
+            onClick={() => handleSocialClick(mapsUrl)}
             aria-label="View our location"
           >
             <img src={location} alt="Location" />
@@ -97,7 +105,7 @@ const Header = () => {
         </div>
 
         {/* Book Now Button */}
-        <Link to="/ContactUs" className="book-now-btn">
+        <Link to="/contact" className="book-now-btn">
           Book Now
         </Link>
 
@@ -123,28 +131,42 @@ const Header = () => {
           Home
         </Link>
         <Link
-          to="/Photos"
+          to="/about"
+          className="mobile-nav-link"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          About
+        </Link>
+        <Link
+          to="/stay"
+          className="mobile-nav-link"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          Stay
+        </Link>
+        <Link
+          to="/gallery"
           className="mobile-nav-link"
           onClick={() => setIsMobileMenuOpen(false)}
         >
           Gallery
         </Link>
         <Link
-          to="/AboutUs"
+          to="/packages"
           className="mobile-nav-link"
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          About Us
+          Packages
         </Link>
         <Link
-          to="/Services"
+          to="/reviews"
           className="mobile-nav-link"
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          Services
+          Reviews
         </Link>
         <Link
-          to="/ContactUs"
+          to="/contact"
           className="mobile-nav-link"
           onClick={() => setIsMobileMenuOpen(false)}
         >

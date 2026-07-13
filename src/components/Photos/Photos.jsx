@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import Seo from "../SEO/Seo";
 import "./Photos.css";
+import { useGalleryPhotos } from "../../context/SiteContentContext";
 // Gallery Images
+import droneShot from "../../images/new_images/drone_shot.jpeg";
+import bonfire1 from "../../images/bonfire/bonfire-1.jpg";
+import bonfireGathering from "../../images/bonfire/people-get-togetther.jpeg";
 import dinningTable from "../../images/GalleryImages/diningTable.jpeg";
 import group1 from "../../images/GalleryImages/group1.jpeg";
 import kid1 from "../../images/GalleryImages/kid1.jpeg";
@@ -12,15 +17,19 @@ import outdoor3 from "../../images/GalleryImages/outdoor3.jpeg";
 import outdoor4 from "../../images/GalleryImages/outdoor4.jpeg";
 import outdoor5 from "../../images/GalleryImages/outdoor5.jpeg";
 import outdoor6 from "../../images/GalleryImages/outdoor6.jpeg";
+import poolAerial from "../../images/outside/pool.jpg";
+import poolEvening from "../../images/outside/pool-2.jpg";
+import poolNight from "../../images/outside/pool-3.jpg";
+import swing from "../../images/outside/swing.jpg";
 import tent1 from "../../images/GalleryImages/tent1.jpeg";
 import tent2 from "../../images/GalleryImages/tent2.jpeg";
 // Villa Images
 import bedroom1 from "../../images/villa_images/bedroom1.jpeg";
 import blackSheetBDR from "../../images/villa_images/blackSheetBDR.jpeg";
-import food from "../../images/villa_images/food.png";
+import foodPlate from "../../images/food/food-in-a-plate.jpeg";
+import foodMenu from "../../images/food/food-menu.jpg";
 import lightBGBedroom from "../../images/villa_images/lightBGBedroom.jpeg";
 import livingRoom from "../../images/villa_images/living_room.jpeg";
-import prettyBedroom from "../../images/villa_images/prettyBedroom.jpeg";
 // First Floor Images
 import animals from "../../images/FirstFloor/animals.jpeg";
 import doll2 from "../../images/FirstFloor/doll2.jpeg";
@@ -31,35 +40,58 @@ import miniatures from "../../images/FirstFloor/miniatures.jpeg";
 import teddy2 from "../../images/FirstFloor/teddy2.jpeg";
 import teddybear from "../../images/FirstFloor/teddybear.jpeg";
 
+const SWIPE_THRESHOLD = 50;
+
 const Photos = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
+  const touchStartX = useRef(null);
+  const { galleryPhotos } = useGalleryPhotos();
+
+  const adminGalleryImages = galleryPhotos.map((photo) => ({
+    src: photo.url,
+    alt: photo.alt || "Rustic Farm Villa",
+    category: photo.category,
+  }));
 
   const galleryImages = [
     // Interior Spaces
     { src: livingRoom, alt: "Luxurious Living Room", category: "interior" },
     { src: lightBGBedroom, alt: "Bright & Airy Bedroom", category: "interior" },
     { src: blackSheetBDR, alt: "Elegant Master Bedroom", category: "interior" },
-    { src: prettyBedroom, alt: "Cozy Bedroom", category: "interior" },
     { src: bedroom1, alt: "Comfortable Guest Room", category: "interior" },
     { src: dinningTable, alt: "Elegant Dining Area", category: "interior" },
 
     // Outdoor Spaces
+    { src: droneShot, alt: "Aerial View of the Pool & Villa Grounds", category: "outdoor" },
     { src: outdoor1, alt: "Beautiful Pool Area", category: "outdoor" },
     { src: outdoor2, alt: "Garden & Landscape", category: "outdoor" },
     { src: outdoor3, alt: "Outdoor Seating Area", category: "outdoor" },
     { src: outdoor4, alt: "Villa Exterior View", category: "outdoor" },
     { src: outdoor5, alt: "Peaceful Garden Space", category: "outdoor" },
     { src: outdoor6, alt: "Natural Surroundings", category: "outdoor" },
+    { src: poolAerial, alt: "Aerial View of the Private Pool", category: "outdoor" },
+    { src: poolEvening, alt: "Pool Deck at Dusk", category: "outdoor" },
+    { src: poolNight, alt: "Pool Area Lit Up at Night", category: "outdoor" },
+    { src: swing, alt: "Garden Swing at Sunset", category: "outdoor" },
 
     // Activities & Experiences
+    { src: bonfire1, alt: "Bonfire Night at Rustic Farm Villa", category: "activities" },
+    { src: bonfireGathering, alt: "Birthday Celebration Around the Bonfire Hut", category: "activities" },
     { src: tent1, alt: "Camping Experience", category: "activities" },
     { src: tent2, alt: "Outdoor Adventures", category: "activities" },
     { src: group1, alt: "Group Gatherings", category: "activities" },
     { src: kid1, alt: "Family Fun Activities", category: "activities" },
 
     // Dining & Culinary
-    { src: food, alt: "Delicious Local Cuisine", category: "dining" },
+    {
+      src: foodPlate,
+      alt: "Homestyle Thali Meal",
+      category: "dining",
+      imageFit: "contain",
+      bgGradient: "linear-gradient(135deg, rgb(230, 221, 210) 0%, rgb(120, 100, 101) 100%)",
+    },
+    { src: foodMenu, alt: "Sample Menu at Rustic Farm Villa", category: "dining" },
 
     // First Floor - Toys & Decorations
     {
@@ -74,6 +106,9 @@ const Photos = () => {
     { src: doll4, alt: "Artistic Doll Arrangement", category: "firstfloor" },
     { src: animals, alt: "Animal Figurines", category: "firstfloor" },
     { src: miniatures, alt: "Miniature Collection", category: "firstfloor" },
+
+    // Added via Admin
+    ...adminGalleryImages,
   ];
 
   const categories = [
@@ -90,16 +125,60 @@ const Photos = () => {
       ? galleryImages
       : galleryImages.filter((image) => image.category === activeFilter);
 
-  const openLightbox = (image) => {
-    setSelectedImage(image);
+  const selectedImage =
+    selectedIndex !== null ? filteredImages[selectedIndex] : null;
+
+  const openLightbox = (index) => {
+    setSelectedIndex(index);
   };
 
   const closeLightbox = () => {
-    setSelectedImage(null);
+    setSelectedIndex(null);
+  };
+
+  const goToNext = () => {
+    setSelectedIndex((i) => (i + 1) % filteredImages.length);
+  };
+
+  const goToPrev = () => {
+    setSelectedIndex((i) => (i - 1 + filteredImages.length) % filteredImages.length);
+  };
+
+  useEffect(() => {
+    if (selectedIndex === null) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowRight") goToNext();
+      else if (e.key === "ArrowLeft") goToPrev();
+      else if (e.key === "Escape") closeLightbox();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedIndex, filteredImages.length]);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(deltaX) > SWIPE_THRESHOLD) {
+      if (deltaX < 0) goToNext();
+      else goToPrev();
+    }
+    touchStartX.current = null;
   };
 
   return (
     <div className="gallery-page">
+      <Seo
+        title="Gallery"
+        description="Browse photos of Rustic Farm Villa's interiors, outdoor pool area, gardens, activities, dining, and the whimsical first-floor attic in Mandva, Wada."
+        path="/gallery"
+      />
       <Header />
 
       <div className="gallery-hero">
@@ -146,9 +225,14 @@ const Photos = () => {
             <div
               key={index}
               className="gallery-item"
-              onClick={() => openLightbox(image)}
+              onClick={() => openLightbox(index)}
+              style={image.bgGradient ? { background: image.bgGradient } : undefined}
             >
-              <img src={image.src} alt={image.alt} />
+              <img
+                src={image.src}
+                alt={image.alt}
+                style={image.imageFit ? { objectFit: image.imageFit } : undefined}
+              />
               <div className="gallery-overlay">
                 <div className="gallery-overlay-content">
                   <h3>{image.alt}</h3>
@@ -163,9 +247,21 @@ const Photos = () => {
       {/* Lightbox Modal */}
       {selectedImage && (
         <div className="lightbox" onClick={closeLightbox}>
+          <button
+            className="lightbox-nav lightbox-prev"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToPrev();
+            }}
+            aria-label="Previous photo"
+          >
+            &#10094;
+          </button>
           <div
             className="lightbox-content"
             onClick={(e) => e.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
           >
             <span className="lightbox-close" onClick={closeLightbox}>
               &times;
@@ -175,6 +271,16 @@ const Photos = () => {
               <h3>{selectedImage.alt}</h3>
             </div>
           </div>
+          <button
+            className="lightbox-nav lightbox-next"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToNext();
+            }}
+            aria-label="Next photo"
+          >
+            &#10095;
+          </button>
         </div>
       )}
 

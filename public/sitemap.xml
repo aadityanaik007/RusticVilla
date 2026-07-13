@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.rusticfarmvilla.com/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.rusticfarmvilla.com/about</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.rusticfarmvilla.com/stay</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.rusticfarmvilla.com/gallery</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.rusticfarmvilla.com/packages</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.rusticfarmvilla.com/reviews</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.rusticfarmvilla.com/contact</loc>
+    <priority>0.9</priority>
+  </url>
+</urlset>

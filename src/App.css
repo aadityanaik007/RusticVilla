@@ -29,7 +29,7 @@ body {
 }
 
 .App {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    background: linear-gradient(135deg, var(--rfv-cream) 0%, var(--rfv-sage-soft) 100%);
     min-height: 100vh;
     position: relative;
 }
@@ -45,14 +45,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    background: var(--rfv-cream);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #817f76, #a8a596);
+    background: linear-gradient(135deg, var(--rfv-gold), var(--rfv-gold-soft));
     border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #a8a596, #817f76);
+    background: linear-gradient(135deg, var(--rfv-gold-soft), var(--rfv-gold));
 }

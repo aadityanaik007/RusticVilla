@@ -2,9 +2,28 @@ import React from "react";
 import "./Footer.css";
 import instagram from "../../images/insta.png";
 import location from "../../images/location.png";
+import logo from "../../images/logo/logo.jpeg";
 import { Link } from "react-router-dom";
+import { TEXT_DEFAULTS } from "../../data/siteDefaults";
+import { useSiteText } from "../../context/SiteContentContext";
 
 const Footer = () => {
+  const description = useSiteText(
+    "footer.description",
+    TEXT_DEFAULTS["footer.description"]
+  );
+  const instagramUrl = useSiteText(
+    "contact.instagram_url",
+    TEXT_DEFAULTS["contact.instagram_url"]
+  );
+  const mapsUrl = useSiteText("contact.maps_url", TEXT_DEFAULTS["contact.maps_url"]);
+  const address = useSiteText("contact.address", TEXT_DEFAULTS["contact.address"]);
+  const phone = useSiteText(
+    "contact.phone_front_desk",
+    TEXT_DEFAULTS["contact.phone_front_desk"]
+  );
+  const email = useSiteText("contact.email", TEXT_DEFAULTS["contact.email"]);
+
   const handleSocialClick = (url) => {
     window.open(url, "_blank");
   };
@@ -20,7 +39,7 @@ const Footer = () => {
           <p className="footer-cta-subtitle">
             Experience luxury and tranquility at Rustic Farm Villa
           </p>
-          <Link to="/ContactUs" className="footer-cta-btn">
+          <Link to="/contact" className="footer-cta-btn">
             Book Your Stay
           </Link>
         </div>
@@ -32,31 +51,21 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
+              <img src={logo} alt="Rustic Farm Villa" className="footer-logo-image" />
               <h3>Rustic Farm Villa</h3>
             </Link>
-            <p className="footer-description">
-              Escape to luxury in the heart of nature. Where rustic charm meets
-              modern elegance for an unforgettable experience.
-            </p>
+            <p className="footer-description">{description}</p>
             <div className="footer-social">
               <button
                 className="social-icon"
-                onClick={() =>
-                  handleSocialClick(
-                    "https://www.instagram.com/rusticfarmvilla/"
-                  )
-                }
+                onClick={() => handleSocialClick(instagramUrl)}
                 aria-label="Follow us on Instagram"
               >
                 <img src={instagram} alt="Instagram" />
               </button>
               <button
                 className="social-icon"
-                onClick={() =>
-                  handleSocialClick(
-                    "https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu"
-                  )
-                }
+                onClick={() => handleSocialClick(mapsUrl)}
                 aria-label="Visit our location"
               >
                 <img src={location} alt="Location" />
@@ -72,23 +81,29 @@ const Footer = () => {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/AboutUs">About Us</Link>
+                <Link to="/about">About</Link>
               </li>
               <li>
-                <Link to="/Photos">Gallery</Link>
+                <Link to="/stay">Stay</Link>
               </li>
               <li>
-                <Link to="/ContactUs">Contact</Link>
+                <Link to="/gallery">Gallery</Link>
               </li>
               <li>
-                <div className="footer-link">Services</div>
+                <Link to="/packages">Packages</Link>
+              </li>
+              <li>
+                <Link to="/reviews">Reviews</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact</Link>
               </li>
             </ul>
           </div>
 
           {/* Services */}
           <div className="footer-services">
-            <h4>Our Services</h4>
+            <h4>Our Amenities</h4>
             <ul>
               <li>Luxury Accommodation</li>
               <li>Fine Dining</li>
@@ -102,11 +117,15 @@ const Footer = () => {
           <div className="footer-contact">
             <h4>Get in Touch</h4>
             <div className="contact-info">
-              <p>📍 Wada, Mandwa, Maharashtra</p>
-              <p>📞 +91 8108266499</p>
-              <p>✉️ info@rusticfarmvilla.com</p>
+              <p>📍 {address}</p>
+              <p>
+                📞 <a href={`tel:${phone.replace(/\s+/g, "")}`}>{phone}</a>
+              </p>
+              <p>
+                ✉️ <a href={`mailto:${email}`}>{email}</a>
+              </p>
             </div>
-            <Link to="/ContactUs" className="contact-btn">
+            <Link to="/contact" className="contact-btn">
               Contact Us
             </Link>
           </div>
@@ -122,6 +141,7 @@ const Footer = () => {
               <span>Privacy Policy</span>
               <span>Terms of Service</span>
               <span>Cookie Policy</span>
+              <Link to="/admin">Sign In</Link>
             </div>
           </div>
         </div>
