@@ -42,7 +42,7 @@ const Header = () => {
       <div className="header-container">
         <div className="header-logo">
           <Link to="/" className="logo-link">
-            <img src={logo} alt="Rustic Farm Villa" className="logo-image" />
+            <img src={logo} alt="Rustic Farm Villaa" className="logo-image" />
           </Link>
         </div>
 

@@ -1,9 +1,10 @@
 # Deploying the Booking API
 
-The backend code is done and tested locally (SQLite). Going live needs four
+The backend code is done and tested locally (SQLite). Going live needs five
 free accounts — Neon (or Supabase) for the database, Cloudinary for image
-uploads from the admin panel, Brevo for sending booking emails, and Vercel
-for hosting the API. All are one-time setups.
+uploads from the admin panel, Brevo for sending booking emails, CallMeBot for
+a WhatsApp notification on new bookings, and Vercel for hosting the API. All
+are one-time setups.
 
 ## 1. Create the database (Neon)
 
@@ -34,7 +35,21 @@ then find the Postgres connection string under Project Settings → Database.)
    API Keys → Generate a new API key.
 4. Keep the API key and the verified sender address handy for step 5.
 
-## 4. Create the Vercel project
+## 4. Set up CallMeBot (for a WhatsApp notification on new bookings)
+
+This is a free, unofficial community service (not run by Meta/WhatsApp) that
+notifies your own number — good enough for "someone just booked" alerts, but
+worth knowing it isn't the official WhatsApp Business API.
+
+1. Save this contact in your phone: **+34 644 17 94 64**.
+2. From the WhatsApp number you want notifications on (e.g. +91 8108266499),
+   send that contact this exact message: `I allow callmebot to send me messages`
+3. Within a couple of minutes you'll get a reply like "API Activated for your
+   phone number. Your APIKEY is 123456" — that's your API key.
+4. Keep your phone number (with country code, e.g. `+918108266499`) and that
+   API key handy for step 6.
+
+## 5. Create the Vercel project
 
 1. Push this repo to GitHub if it isn't already there.
 2. Go to https://vercel.com, sign up/log in, and click "Add New → Project".
@@ -45,7 +60,7 @@ then find the Postgres connection string under Project Settings → Database.)
 5. Framework preset: choose "Other" (Vercel will detect `vercel.json` and use
    the Python runtime automatically).
 
-## 5. Set environment variables
+## 6. Set environment variables
 
 In the Vercel project → Settings → Environment Variables, add:
 
@@ -61,13 +76,15 @@ In the Vercel project → Settings → Environment Variables, add:
 | `BREVO_SENDER_EMAIL` | the verified sender address from step 3 |
 | `BREVO_SENDER_NAME` | (optional) the name emails are sent from, e.g. "Rustic Farm Villa" |
 | `ADMIN_NOTIFICATION_EMAIL` | the email address that should receive new booking notifications |
+| `CALLMEBOT_PHONE` | your WhatsApp number with country code from step 4, e.g. `+918108266499` |
+| `CALLMEBOT_API_KEY` | the API key from step 4 |
 
-## 6. Deploy
+## 7. Deploy
 
 Click "Deploy". Once it finishes, Vercel gives you a URL like
 `https://rustic-farm-villa-api.vercel.app`.
 
-## 7. Connect the frontend
+## 8. Connect the frontend
 
 Send me that URL (or add it yourself) as `REACT_APP_BOOKING_API_URL` in the
 website's `.env` file, e.g.:
@@ -95,7 +112,9 @@ Visit `yoursite.com/admin`, enter the `ADMIN_SECRET_KEY` you set in step 4
   through if the dates already overlap another confirmed booking, so you can't
   accidentally double-book. Submitting the form also automatically emails the
   guest a confirmation and emails you (`ADMIN_NOTIFICATION_EMAIL`) a
-  notification, both via Brevo — no EmailJS involved anymore.
+  notification, both via Brevo — no EmailJS involved anymore — and sends a
+  WhatsApp message to `CALLMEBOT_PHONE` with the booking details via
+  CallMeBot.
 - **Site Content tab** — edit the text (descriptions, contact details) and
   swap out images shown across the site. Text edits apply immediately after
   saving; image uploads go straight to Cloudinary and update on the live

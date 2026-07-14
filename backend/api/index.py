@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from .auth import require_admin
 from .database import Base, engine, get_db
 from .email import send_email
+from .whatsapp import send_whatsapp
 from .models import Booking, GalleryPhoto, SiteContent, SiteImage
 from .schemas import (
     BookingCreate,
@@ -25,7 +26,7 @@ GALLERY_CATEGORIES = {"interior", "outdoor", "activities", "dining", "firstfloor
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Rustic Farm Villa Booking API")
+app = FastAPI(title="Rustic Farm Villaa Booking API")
 
 allowed_origins = [
     origin.strip()
@@ -100,8 +101,45 @@ def delete_booking(
     booking = db.query(Booking).filter(Booking.id == booking_id).first()
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
+
+    is_rejected_request = booking.status == "pending" and booking.guest_email
+    if is_rejected_request:
+        guest_name = booking.guest_name
+        guest_email = booking.guest_email
+        check_in = booking.check_in
+        check_out = booking.check_out
+
     db.delete(booking)
     db.commit()
+
+    if is_rejected_request:
+        send_email(
+            guest_email,
+            guest_name,
+            "Update on Your Booking Request - Rustic Farm Villaa",
+            f"""Hi {guest_name},
+
+Thank you for your interest in Rustic Farm Villaa. Unfortunately, we're
+unable to accommodate your request for {check_in} to {check_out} at this
+time.
+
+Please feel free to reach out to us for alternative dates — we'd love to
+host you another time.
+
+Best Regards,
+Rustic Farm Villaa""",
+        )
+
+        admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
+        if admin_email:
+            send_email(
+                admin_email,
+                "Rustic Farm Villaa Admin",
+                "Booking Request Rejected - Rustic Farm Villaa",
+                f"""You rejected the booking request from {guest_name} for
+{check_in} to {check_out}. The guest has been notified by email.""",
+            )
+
     return None
 
 
@@ -146,28 +184,32 @@ def create_booking_request(
     send_email(
         payload.guest_email,
         payload.guest_name,
-        "Your Booking Request - Rustic Farm Villa",
+        "Your Booking Request - Rustic Farm Villaa",
         f"""Hi {payload.guest_name},
 
-Thanks for reaching out to Rustic Farm Villa! We've received your booking
+Thanks for reaching out to Rustic Farm Villaa! We've received your booking
 request for {payload.check_in} to {payload.check_out}{guest_count_text}.
 {f"Package: {payload.package}" if payload.package else ""}
+
+Check-in: 12:00 PM IST
+Check-out: 10:00 AM IST
 
 We'll review availability and get back to you within 24 hours to confirm.
 
 Best Regards,
-Rustic Farm Villa""",
+Rustic Farm Villaa""",
     )
 
     admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
     if admin_email:
         send_email(
             admin_email,
-            "Rustic Farm Villa Admin",
-            "New Booking Request - Rustic Farm Villa",
+            "Rustic Farm Villaa Admin",
+            "New Booking Request - Rustic Farm Villaa",
             f"""New booking request from {payload.guest_name}.
 
 Dates: {payload.check_in} to {payload.check_out}
+Check-in: 12:00 PM IST / Check-out: 10:00 AM IST
 Guests: {payload.guests or "Not specified"}
 Phone: {payload.guest_phone}
 Email: {payload.guest_email}
@@ -176,6 +218,21 @@ Package: {payload.package or "Not specified"}
 
 Review and confirm this request in the admin panel.""",
         )
+
+    send_whatsapp(
+        f"""New Booking Request
+
+Guest: {payload.guest_name}
+Dates: {payload.check_in} to {payload.check_out}
+Check-in: 12:00 PM IST / Check-out: 10:00 AM IST
+Guests: {payload.guests or "Not specified"}
+Phone: {payload.guest_phone}
+Email: {payload.guest_email}
+Package: {payload.package or "Not specified"}
+{f"Message: {payload.message}" if payload.message else ""}
+
+Review and confirm in the admin panel."""
+    )
 
     return booking
 

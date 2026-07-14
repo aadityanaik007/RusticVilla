@@ -40,7 +40,7 @@ const setJsonLd = (id, data) => {
  */
 const Seo = ({ title, description, path = "/", jsonLd }) => {
   useEffect(() => {
-    const fullTitle = `${title} | Rustic Farm Villa`;
+    const fullTitle = `${title} | Rustic Farm Villaa`;
     document.title = fullTitle;
 
     setMetaTag("name", "description", description);

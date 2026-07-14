@@ -3,7 +3,8 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Seo from "../SEO/Seo";
 import "./Photos.css";
-import { useGalleryPhotos } from "../../context/SiteContentContext";
+import { IMAGE_DEFAULTS } from "../../data/siteDefaults";
+import { useGalleryPhotos, useSiteImage } from "../../context/SiteContentContext";
 // Gallery Images
 import droneShot from "../../images/new_images/drone_shot.jpeg";
 import bonfire1 from "../../images/bonfire/bonfire-1.jpg";
@@ -47,10 +48,11 @@ const Photos = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const touchStartX = useRef(null);
   const { galleryPhotos } = useGalleryPhotos();
+  const heroImage = useSiteImage("gallery.hero", IMAGE_DEFAULTS["gallery.hero"]);
 
   const adminGalleryImages = galleryPhotos.map((photo) => ({
     src: photo.url,
-    alt: photo.alt || "Rustic Farm Villa",
+    alt: photo.alt || "Rustic Farm Villaa",
     category: photo.category,
   }));
 
@@ -76,7 +78,7 @@ const Photos = () => {
     { src: swing, alt: "Garden Swing at Sunset", category: "outdoor" },
 
     // Activities & Experiences
-    { src: bonfire1, alt: "Bonfire Night at Rustic Farm Villa", category: "activities" },
+    { src: bonfire1, alt: "Bonfire Night at Rustic Farm Villaa", category: "activities" },
     { src: bonfireGathering, alt: "Birthday Celebration Around the Bonfire Hut", category: "activities" },
     { src: tent1, alt: "Camping Experience", category: "activities" },
     { src: tent2, alt: "Outdoor Adventures", category: "activities" },
@@ -91,7 +93,7 @@ const Photos = () => {
       imageFit: "contain",
       bgGradient: "linear-gradient(135deg, rgb(230, 221, 210) 0%, rgb(120, 100, 101) 100%)",
     },
-    { src: foodMenu, alt: "Sample Menu at Rustic Farm Villa", category: "dining" },
+    { src: foodMenu, alt: "Sample Menu at Rustic Farm Villaa", category: "dining" },
 
     // First Floor - Toys & Decorations
     {
@@ -176,19 +178,20 @@ const Photos = () => {
     <div className="gallery-page">
       <Seo
         title="Gallery"
-        description="Browse photos of Rustic Farm Villa's interiors, outdoor pool area, gardens, activities, dining, and the whimsical first-floor attic in Mandva, Wada."
+        description="Browse photos of Rustic Farm Villaa's interiors, outdoor pool area, gardens, activities, dining, and the whimsical first-floor attic in Mandva, Wada."
         path="/gallery"
       />
       <Header />
 
       <div className="gallery-hero">
+        <img src={heroImage.src} alt={heroImage.alt} className="gallery-hero-bg" />
+        <div className="gallery-hero-overlay"></div>
         <div className="gallery-hero-content">
           <h1 className="gallery-hero-title">Photo Gallery</h1>
           <p className="gallery-hero-subtitle">
-            Discover the beauty and charm of Rustic Farm Villa
+            Discover the beauty and charm of Rustic Farm Villaa
           </p>
         </div>
-        <div className="gallery-hero-overlay"></div>
       </div>
 
       <div className="gallery-intro">

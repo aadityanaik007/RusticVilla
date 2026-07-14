@@ -31,3 +31,6 @@ backend/*.db
 backend/.vercel
 backend/venv/
 
+# sensitive account recovery codes — never commit
+/backend-recovery-code/
+

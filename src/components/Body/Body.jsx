@@ -79,7 +79,7 @@ const Body = () => {
         <div className="reviews-header">
           <h2 className="reviews-title">What Our Guests Say</h2>
           <p className="reviews-subtitle">
-            Hear from those who have experienced the magic of Rustic Farm Villa
+            Hear from those who have experienced the magic of Rustic Farm Villaa
           </p>
         </div>
         <div className="reviews-container">

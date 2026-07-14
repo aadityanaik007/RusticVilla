@@ -83,7 +83,7 @@ const GoogleReviews = () => {
         <div className="gr-cta-content">
           <h3 className="gr-cta-title">Share Your Experience</h3>
           <p className="gr-cta-subtitle">
-            Help others discover the magic of Rustic Farm Villa
+            Help others discover the magic of Rustic Farm Villaa
           </p>
           <div className="gr-cta-buttons">
             <a

@@ -99,9 +99,14 @@ const IMAGE_FIELD_GROUPS = [
   {
     title: "About Page",
     slots: [
+      { slot: "about.hero", label: "Hero Background" },
       { slot: "about.story", label: "Our Story" },
       { slot: "about.vintage", label: "Vintage Charm" },
     ],
+  },
+  {
+    title: "Gallery Page",
+    slots: [{ slot: "gallery.hero", label: "Hero Background" }],
   },
   {
     title: "Stay Page",
@@ -121,9 +126,14 @@ const IMAGE_FIELD_GROUPS = [
   {
     title: "Packages Page",
     slots: [
+      { slot: "packages.hero", label: "Hero Background" },
       { slot: "packages.weekend", label: "Weekend Getaway" },
       { slot: "packages.celebration", label: "Celebration Package" },
     ],
+  },
+  {
+    title: "Contact Page",
+    slots: [{ slot: "contact.hero", label: "Hero Background" }],
   },
 ];
 
@@ -411,7 +421,7 @@ const Admin = () => {
     <div className="admin-page">
       <Seo
         title="Admin"
-        description="Manage Rustic Farm Villa booking availability and site content."
+        description="Manage Rustic Farm Villaa booking availability and site content."
         path="/admin"
       />
 

@@ -79,7 +79,7 @@ const Stay = () => {
     <div className="stay-page">
       <Seo
         title="Stay"
-        description="Explore accommodation at Rustic Farm Villa — elegant bedrooms, a whimsical first-floor attic, and modern amenities set amid nature in Mandva, Wada."
+        description="Explore accommodation at Rustic Farm Villaa — elegant bedrooms, a whimsical first-floor attic, and modern amenities set amid nature in Mandva, Wada."
         path="/stay"
       />
       <Header />

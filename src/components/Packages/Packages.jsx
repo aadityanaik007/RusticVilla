@@ -8,6 +8,7 @@ import { TEXT_DEFAULTS, IMAGE_DEFAULTS } from "../../data/siteDefaults";
 import { useSiteText, useSiteImage } from "../../context/SiteContentContext";
 
 const Packages = () => {
+  const heroImage = useSiteImage("packages.hero", IMAGE_DEFAULTS["packages.hero"]);
   const weekendTagline = useSiteText(
     "packages.weekend.tagline",
     TEXT_DEFAULTS["packages.weekend.tagline"]
@@ -63,12 +64,14 @@ const Packages = () => {
     <div className="packages-page">
       <Seo
         title="Packages"
-        description="Explore the Weekend Getaway (₹1,800 per person) and Celebration packages at Rustic Farm Villa. Contact us for custom pricing and availability."
+        description="Explore the Weekend Getaway (₹1,800 per person) and Celebration packages at Rustic Farm Villaa. Contact us for custom pricing and availability."
         path="/packages"
       />
       <Header />
 
       <div className="packages-hero">
+        <img src={heroImage.src} alt={heroImage.alt} className="packages-hero-bg" />
+        <div className="packages-hero-overlay"></div>
         <div className="packages-hero-content">
           <h1 className="packages-hero-title">Packages</h1>
           <p className="packages-hero-subtitle">

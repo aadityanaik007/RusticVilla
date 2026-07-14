@@ -17,12 +17,12 @@ function App() {
     <div className="App">
       <Seo
         title="Premium Farmhouse Stay in Mandva, Wada"
-        description="Rustic Farm Villa is a premium farmhouse getaway in Mandva, Wada, Maharashtra, blending rustic charm with modern luxury. Book your stay for families, couples, and celebrations."
+        description="Rustic Farm Villaa is a premium farmhouse getaway in Mandva, Wada, Maharashtra, blending rustic charm with modern luxury. Book your stay for families, couples, and celebrations."
         path="/"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "LodgingBusiness",
-          name: "Rustic Farm Villa",
+          name: "Rustic Farm Villaa",
           image: "https://www.rusticfarmvilla.com/og-image.jpg",
           telephone: phone,
           address: {

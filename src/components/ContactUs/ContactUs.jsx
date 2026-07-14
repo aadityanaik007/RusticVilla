@@ -5,12 +5,13 @@ import Seo from "../SEO/Seo";
 import WeatherWidget from "../WeatherWidget/WeatherWidget";
 import BookingCalendar from "../BookingCalendar/BookingCalendar";
 import "./ContactUs.css";
-import { TEXT_DEFAULTS } from "../../data/siteDefaults";
-import { useSiteText } from "../../context/SiteContentContext";
+import { TEXT_DEFAULTS, IMAGE_DEFAULTS } from "../../data/siteDefaults";
+import { useSiteText, useSiteImage } from "../../context/SiteContentContext";
 
 const API_BASE = process.env.REACT_APP_BOOKING_API_URL;
 
 const ContactUs = () => {
+  const heroImage = useSiteImage("contact.hero", IMAGE_DEFAULTS["contact.hero"]);
   const address = useSiteText("contact.address", TEXT_DEFAULTS["contact.address"]);
   const phoneFrontDesk = useSiteText(
     "contact.phone_front_desk",
@@ -25,6 +26,10 @@ const ContactUs = () => {
     TEXT_DEFAULTS["contact.whatsapp_number"]
   );
   const mapsUrl = useSiteText("contact.maps_url", TEXT_DEFAULTS["contact.maps_url"]);
+  const weekendPrice = useSiteText(
+    "packages.weekend.price",
+    TEXT_DEFAULTS["packages.weekend.price"]
+  );
 
   const [formData, setFormData] = useState({
     name: "",
@@ -125,19 +130,20 @@ const ContactUs = () => {
     <div className="contact-page">
       <Seo
         title="Contact Us"
-        description="Get in touch with Rustic Farm Villa in Mandva, Wada to book your stay. Call, WhatsApp, or send an enquiry and we'll respond within 24 hours."
+        description="Get in touch with Rustic Farm Villaa in Mandva, Wada to book your stay. Call, WhatsApp, or send an enquiry and we'll respond within 24 hours."
         path="/contact"
       />
       <Header />
 
       <div className="contact-hero">
+        <img src={heroImage.src} alt={heroImage.alt} className="contact-hero-bg" />
+        <div className="contact-hero-overlay"></div>
         <div className="contact-hero-content">
           <h1 className="contact-hero-title">Contact Us</h1>
           <p className="contact-hero-subtitle">
             We're here to help you plan your perfect getaway
           </p>
         </div>
-        <div className="contact-hero-overlay"></div>
       </div>
 
       <div className="contact-container">
@@ -154,7 +160,7 @@ const ContactUs = () => {
                   <div className="contact-text">
                     <h3>Address</h3>
                     <p>
-                      Rustic Farm Villa
+                      Rustic Farm Villaa
                       <br />
                       {address}
                     </p>
@@ -198,7 +204,7 @@ const ContactUs = () => {
                     <p>
                       <a
                         href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                          "Hi, I'd like to enquire about booking Rustic Farm Villa."
+                          "Hi, I'd like to enquire about booking Rustic Farm Villaa."
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -216,7 +222,7 @@ const ContactUs = () => {
               <h3>Find Us</h3>
               <div className="map-container">
                 <iframe
-                  title="Rustic Farm Villa Location"
+                  title="Rustic Farm Villaa Location"
                   className="map-embed"
                   src="https://www.google.com/maps?q=19.7019817,73.2099689&z=15&output=embed"
                   loading="lazy"
@@ -322,8 +328,8 @@ const ContactUs = () => {
                     onChange={handleInputChange}
                   >
                     <option value="">Select a package (optional)</option>
-                    <option value="Weekend Getaway (₹1,800 per person)">
-                      Weekend Getaway (₹1,800 per person)
+                    <option value={`Weekend Getaway (${weekendPrice})`}>
+                      Weekend Getaway ({weekendPrice})
                     </option>
                     <option value="Celebration Package (Contact for price)">
                       Celebration Package (Contact for price)
