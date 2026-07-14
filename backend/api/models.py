@@ -10,6 +10,7 @@ class Booking(Base):
     check_in = Column(Date, nullable=False, index=True)
     check_out = Column(Date, nullable=False, index=True)
     status = Column(String, nullable=False, default="booked")
+    previous_status = Column(String, nullable=True)
     note = Column(String, nullable=True)
     guest_name = Column(String, nullable=True)
     guest_email = Column(String, nullable=True)

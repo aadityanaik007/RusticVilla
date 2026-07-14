@@ -263,6 +263,11 @@
     color: var(--rfv-forest);
 }
 
+.admin-booking-status.cancelled {
+    background: rgba(200, 90, 80, 0.15);
+    color: #a03d30;
+}
+
 .admin-booking-guest {
     margin-top: 0.4rem;
     color: var(--rfv-text-muted);
@@ -308,6 +313,21 @@
 
 .admin-remove-btn:hover {
     background: rgba(200, 90, 80, 0.3);
+}
+
+.admin-undo-btn {
+    background: rgba(214, 136, 58, 0.15);
+    color: var(--rfv-gold);
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: Roboto-Bold;
+}
+
+.admin-undo-btn:hover {
+    background: rgba(214, 136, 58, 0.3);
 }
 
 @media (max-width: 480px) {

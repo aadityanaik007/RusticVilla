@@ -247,7 +247,7 @@ const Admin = () => {
     }
   };
 
-  const handleRemove = async (id) => {
+  const handleDeletePermanently = async (id) => {
     setError("");
     try {
       const res = await fetch(`${API_BASE}/api/bookings/${id}`, {
@@ -274,6 +274,40 @@ const Admin = () => {
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data.detail || "Failed to confirm booking");
+      }
+      loadBookings();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleCancel = async (id) => {
+    setError("");
+    try {
+      const res = await fetch(`${API_BASE}/api/bookings/${id}/cancel`, {
+        method: "PATCH",
+        headers: { "X-Admin-Key": adminKey },
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail || "Failed to cancel booking");
+      }
+      loadBookings();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleUndo = async (id) => {
+    setError("");
+    try {
+      const res = await fetch(`${API_BASE}/api/bookings/${id}/undo`, {
+        method: "PATCH",
+        headers: { "X-Admin-Key": adminKey },
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail || "Failed to undo");
       }
       loadBookings();
     } catch (err) {
@@ -536,10 +570,18 @@ const Admin = () => {
                       <div>
                         <span
                           className={`admin-booking-status ${
-                            b.status === "pending" ? "pending" : "confirmed"
+                            b.status === "pending"
+                              ? "pending"
+                              : b.status === "cancelled"
+                              ? "cancelled"
+                              : "confirmed"
                           }`}
                         >
-                          {b.status === "pending" ? "Pending" : "Confirmed"}
+                          {b.status === "pending"
+                            ? "Pending"
+                            : b.status === "cancelled"
+                            ? "Cancelled"
+                            : "Confirmed"}
                         </span>
                         <strong>
                           {b.check_in} → {b.check_out}
@@ -571,12 +613,30 @@ const Admin = () => {
                             Confirm
                           </button>
                         )}
-                        <button
-                          className="admin-remove-btn"
-                          onClick={() => handleRemove(b.id)}
-                        >
-                          {b.status === "pending" ? "Reject" : "Remove"}
-                        </button>
+                        {b.status !== "cancelled" && (
+                          <button
+                            className="admin-remove-btn"
+                            onClick={() => handleCancel(b.id)}
+                          >
+                            {b.status === "pending" ? "Reject" : "Cancel"}
+                          </button>
+                        )}
+                        {b.previous_status && (
+                          <button
+                            className="admin-undo-btn"
+                            onClick={() => handleUndo(b.id)}
+                          >
+                            Undo
+                          </button>
+                        )}
+                        {b.status === "cancelled" && (
+                          <button
+                            className="admin-remove-btn"
+                            onClick={() => handleDeletePermanently(b.id)}
+                          >
+                            Delete Permanently
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}

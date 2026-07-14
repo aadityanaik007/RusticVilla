@@ -5,7 +5,7 @@ import cloudinary
 import cloudinary.uploader
 from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import and_
+from sqlalchemy import and_, inspect, text
 from sqlalchemy.orm import Session
 
 from .auth import require_admin
@@ -25,6 +25,15 @@ from .schemas import (
 GALLERY_CATEGORIES = {"interior", "outdoor", "activities", "dining", "firstfloor"}
 
 Base.metadata.create_all(bind=engine)
+
+# Base.metadata.create_all only creates missing tables — existing deployments
+# need this column added by hand since there's no migration tool in place.
+_inspector = inspect(engine)
+if "bookings" in _inspector.get_table_names():
+    _existing_columns = {col["name"] for col in _inspector.get_columns("bookings")}
+    if "previous_status" not in _existing_columns:
+        with engine.begin() as conn:
+            conn.execute(text("ALTER TABLE bookings ADD COLUMN previous_status VARCHAR"))
 
 app = FastAPI(title="Rustic Farm Villaa Booking API")
 
@@ -66,10 +75,11 @@ def create_booking(
     overlap = (
         db.query(Booking)
         .filter(
+            Booking.status == "booked",
             and_(
                 Booking.check_in < payload.check_out,
                 Booking.check_out > payload.check_in,
-            )
+            ),
         )
         .first()
     )
@@ -102,44 +112,8 @@ def delete_booking(
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
 
-    is_rejected_request = booking.status == "pending" and booking.guest_email
-    if is_rejected_request:
-        guest_name = booking.guest_name
-        guest_email = booking.guest_email
-        check_in = booking.check_in
-        check_out = booking.check_out
-
     db.delete(booking)
     db.commit()
-
-    if is_rejected_request:
-        send_email(
-            guest_email,
-            guest_name,
-            "Update on Your Booking Request - Rustic Farm Villaa",
-            f"""Hi {guest_name},
-
-Thank you for your interest in Rustic Farm Villaa. Unfortunately, we're
-unable to accommodate your request for {check_in} to {check_out} at this
-time.
-
-Please feel free to reach out to us for alternative dates — we'd love to
-host you another time.
-
-Best Regards,
-Rustic Farm Villaa""",
-        )
-
-        admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
-        if admin_email:
-            send_email(
-                admin_email,
-                "Rustic Farm Villaa Admin",
-                "Booking Request Rejected - Rustic Farm Villaa",
-                f"""You rejected the booking request from {guest_name} for
-{check_in} to {check_out}. The guest has been notified by email.""",
-            )
-
     return None
 
 
@@ -266,7 +240,149 @@ def confirm_booking(
             f"({overlap.check_in} to {overlap.check_out}). Reject one of them first.",
         )
 
+    booking.previous_status = booking.status
     booking.status = "booked"
+    db.commit()
+    db.refresh(booking)
+
+    if booking.guest_email:
+        send_email(
+            booking.guest_email,
+            booking.guest_name,
+            "Your Booking is Confirmed! - Rustic Farm Villaa",
+            f"""Hi {booking.guest_name},
+
+Great news — your booking request for {booking.check_in} to {booking.check_out}
+is now confirmed!
+
+Check-in: 12:00 PM IST
+Check-out: 10:00 AM IST
+
+We're looking forward to hosting you. If you have any questions before your
+stay, feel free to reach out.
+
+Best Regards,
+Rustic Farm Villaa""",
+        )
+
+        admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
+        if admin_email:
+            send_email(
+                admin_email,
+                "Rustic Farm Villaa Admin",
+                "Booking Confirmed - Rustic Farm Villaa",
+                f"""You confirmed the booking for {booking.guest_name},
+{booking.check_in} to {booking.check_out}. The guest has been notified by
+email.""",
+            )
+
+    return booking
+
+
+@app.patch("/api/bookings/{booking_id}/cancel", response_model=BookingOut)
+def cancel_booking(
+    booking_id: int,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_admin),
+):
+    booking = db.query(Booking).filter(Booking.id == booking_id).first()
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    if booking.status == "cancelled":
+        raise HTTPException(status_code=400, detail="Booking is already cancelled")
+
+    was_confirmed = booking.status == "booked"
+    booking.previous_status = booking.status
+    booking.status = "cancelled"
+    db.commit()
+    db.refresh(booking)
+
+    if booking.guest_email:
+        if was_confirmed:
+            send_email(
+                booking.guest_email,
+                booking.guest_name,
+                "Your Booking Has Been Cancelled - Rustic Farm Villaa",
+                f"""Hi {booking.guest_name},
+
+We're sorry to let you know that your confirmed booking for
+{booking.check_in} to {booking.check_out} at Rustic Farm Villaa has been
+cancelled.
+
+Please feel free to reach out to us for alternative dates — we'd love to
+host you another time.
+
+Best Regards,
+Rustic Farm Villaa""",
+            )
+            admin_subject = "Booking Cancelled - Rustic Farm Villaa"
+            admin_body = f"""You cancelled the confirmed booking for
+{booking.guest_name}, {booking.check_in} to {booking.check_out}. The guest
+has been notified by email."""
+        else:
+            send_email(
+                booking.guest_email,
+                booking.guest_name,
+                "Update on Your Booking Request - Rustic Farm Villaa",
+                f"""Hi {booking.guest_name},
+
+Thank you for your interest in Rustic Farm Villaa. Unfortunately, we're
+unable to accommodate your request for {booking.check_in} to {booking.check_out} at this
+time.
+
+Please feel free to reach out to us for alternative dates — we'd love to
+host you another time.
+
+Best Regards,
+Rustic Farm Villaa""",
+            )
+            admin_subject = "Booking Request Rejected - Rustic Farm Villaa"
+            admin_body = f"""You rejected the booking request from
+{booking.guest_name} for {booking.check_in} to {booking.check_out}. The
+guest has been notified by email."""
+
+        admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
+        if admin_email:
+            send_email(admin_email, "Rustic Farm Villaa Admin", admin_subject, admin_body)
+
+    return booking
+
+
+@app.patch("/api/bookings/{booking_id}/undo", response_model=BookingOut)
+def undo_booking(
+    booking_id: int,
+    db: Session = Depends(get_db),
+    _: None = Depends(require_admin),
+):
+    booking = db.query(Booking).filter(Booking.id == booking_id).first()
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking not found")
+    if not booking.previous_status:
+        raise HTTPException(status_code=400, detail="Nothing to undo for this booking")
+
+    target_status = booking.previous_status
+    if target_status == "booked":
+        overlap = (
+            db.query(Booking)
+            .filter(
+                Booking.id != booking_id,
+                Booking.status == "booked",
+                and_(
+                    Booking.check_in < booking.check_out,
+                    Booking.check_out > booking.check_in,
+                ),
+            )
+            .first()
+        )
+        if overlap:
+            raise HTTPException(
+                status_code=409,
+                detail=f"Overlaps confirmed booking #{overlap.id} "
+                f"({overlap.check_in} to {overlap.check_out}). Can't restore.",
+            )
+
+    booking.status = target_status
+    booking.previous_status = None
     db.commit()
     db.refresh(booking)
     return booking

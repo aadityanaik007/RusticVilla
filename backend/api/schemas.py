@@ -42,6 +42,7 @@ class BookingOut(BaseModel):
     check_in: date
     check_out: date
     status: str
+    previous_status: Optional[str] = None
     note: Optional[str] = None
     guest_name: Optional[str] = None
     guest_email: Optional[str] = None

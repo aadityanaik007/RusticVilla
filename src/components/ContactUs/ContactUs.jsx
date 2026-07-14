@@ -53,6 +53,13 @@ const ContactUs = () => {
     }));
   };
 
+  const handlePhoneChange = (e) => {
+    const digitsOnly = e.target.value.replace(/\D/g, "").slice(0, 10);
+    const parts = digitsOnly.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/) || [];
+    const formatted = [parts[1], parts[2], parts[3]].filter(Boolean).join("-");
+    setFormData((prev) => ({ ...prev, phone: formatted }));
+  };
+
   const handleDatesChange = (checkIn, checkOut) => {
     setFormData((prev) => ({ ...prev, checkIn, checkOut }));
   };
@@ -298,7 +305,9 @@ const ContactUs = () => {
                       id="phone"
                       name="phone"
                       value={formData.phone}
-                      onChange={handleInputChange}
+                      onChange={handlePhoneChange}
+                      maxLength={12}
+                      placeholder="e.g. 981-234-5678"
                       required
                     />
                   </div>
