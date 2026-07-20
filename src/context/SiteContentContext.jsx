@@ -83,4 +83,14 @@ export const useGalleryPhotos = () => {
   return { galleryPhotos, refetchGalleryPhotos };
 };
 
+export const useHiddenStaticPhotoIds = () => {
+  const raw = useSiteText("gallery.hidden_static_ids", "[]");
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
 export const useSiteContent = () => useContext(SiteContentContext);

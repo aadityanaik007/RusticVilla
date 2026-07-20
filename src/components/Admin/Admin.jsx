@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Seo from "../SEO/Seo";
 import "./Admin.css";
 import { TEXT_DEFAULTS, IMAGE_DEFAULTS } from "../../data/siteDefaults";
+import { STATIC_GALLERY_PHOTOS } from "../../data/galleryStaticPhotos";
 import { useGalleryPhotos } from "../../context/SiteContentContext";
 
 const API_BASE = process.env.REACT_APP_BOOKING_API_URL;
@@ -163,6 +164,8 @@ const Admin = () => {
   const [addingPhoto, setAddingPhoto] = useState(false);
   const [deletingPhotoId, setDeletingPhotoId] = useState(null);
   const galleryFileInputRef = useRef(null);
+  const [hiddenStaticIds, setHiddenStaticIds] = useState([]);
+  const [hidingStaticId, setHidingStaticId] = useState(null);
 
   const loadBookings = () => {
     if (!API_BASE) return;
@@ -193,6 +196,12 @@ const Admin = () => {
         }
         setTextDrafts(drafts);
         setImages(imagesData || {});
+        try {
+          const parsed = JSON.parse(contentData["gallery.hidden_static_ids"] || "[]");
+          setHiddenStaticIds(Array.isArray(parsed) ? parsed : []);
+        } catch {
+          setHiddenStaticIds([]);
+        }
         setContentError("");
       })
       .catch(() => setContentError("Could not reach the content API."));
@@ -449,6 +458,41 @@ const Admin = () => {
     } finally {
       setDeletingPhotoId(null);
     }
+  };
+
+  const saveHiddenStaticIds = async (nextIds) => {
+    setContentError("");
+    try {
+      const res = await fetch(`${API_BASE}/api/content`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Admin-Key": adminKey,
+        },
+        body: JSON.stringify({
+          updates: { "gallery.hidden_static_ids": JSON.stringify(nextIds) },
+        }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.detail || "Failed to update gallery");
+      }
+      setHiddenStaticIds(nextIds);
+    } catch (err) {
+      setContentError(err.message);
+    }
+  };
+
+  const handleHideStaticPhoto = async (id) => {
+    setHidingStaticId(id);
+    await saveHiddenStaticIds([...hiddenStaticIds, id]);
+    setHidingStaticId(null);
+  };
+
+  const handleRestoreStaticPhoto = async (id) => {
+    setHidingStaticId(id);
+    await saveHiddenStaticIds(hiddenStaticIds.filter((hid) => hid !== id));
+    setHidingStaticId(null);
   };
 
   return (
@@ -769,30 +813,108 @@ const Admin = () => {
                 </div>
 
                 <div className="admin-content-group">
-                  <h2>Photos You've Added ({galleryPhotos.length})</h2>
-                  {galleryPhotos.length === 0 && (
-                    <p>No photos added yet — use the form above to add one.</p>
-                  )}
-                  <div className="admin-image-grid">
-                    {galleryPhotos.map((photo) => (
-                      <div className="admin-image-card" key={photo.id}>
-                        <img src={photo.url} alt={photo.alt || ""} />
-                        <div className="admin-image-label">
-                          {GALLERY_CATEGORIES.find(
-                            (c) => c.key === photo.category
-                          )?.label || photo.category}
-                        </div>
-                        {photo.alt && <div>{photo.alt}</div>}
-                        <button
-                          className="admin-remove-btn"
-                          disabled={deletingPhotoId === photo.id}
-                          onClick={() => handleDeleteGalleryPhoto(photo.id)}
-                        >
-                          {deletingPhotoId === photo.id ? "Removing…" : "Remove"}
-                        </button>
-                      </div>
+                  <h2>Photos by Category</h2>
+                  <div className="admin-tabs">
+                    {GALLERY_CATEGORIES.map((c) => (
+                      <button
+                        key={c.key}
+                        className={`admin-tab ${
+                          newPhotoCategory === c.key ? "active" : ""
+                        }`}
+                        onClick={() => setNewPhotoCategory(c.key)}
+                      >
+                        {c.label}
+                      </button>
                     ))}
                   </div>
+
+                  {(() => {
+                    const staticInCategory = STATIC_GALLERY_PHOTOS.filter(
+                      (p) => p.category === newPhotoCategory
+                    );
+                    const dbInCategory = galleryPhotos.filter(
+                      (p) => p.category === newPhotoCategory
+                    );
+                    const visibleStatic = staticInCategory.filter(
+                      (p) => !hiddenStaticIds.includes(p.id)
+                    );
+                    const hiddenInCategory = staticInCategory.filter((p) =>
+                      hiddenStaticIds.includes(p.id)
+                    );
+                    const totalVisible = visibleStatic.length + dbInCategory.length;
+
+                    return (
+                      <>
+                        <p className="admin-gallery-count">
+                          {totalVisible} photo{totalVisible === 1 ? "" : "s"} in{" "}
+                          {
+                            GALLERY_CATEGORIES.find((c) => c.key === newPhotoCategory)
+                              ?.label
+                          }
+                        </p>
+                        <div className="admin-image-grid">
+                          {visibleStatic.map((photo) => (
+                            <div className="admin-image-card" key={photo.id}>
+                              <img src={photo.src} alt={photo.alt || ""} />
+                              <div className="admin-image-label">Built-in</div>
+                              {photo.alt && <div>{photo.alt}</div>}
+                              <button
+                                className="admin-remove-btn"
+                                disabled={hidingStaticId === photo.id}
+                                onClick={() => handleHideStaticPhoto(photo.id)}
+                              >
+                                {hidingStaticId === photo.id
+                                  ? "Removing…"
+                                  : "Remove"}
+                              </button>
+                            </div>
+                          ))}
+                          {dbInCategory.map((photo) => (
+                            <div className="admin-image-card" key={photo.id}>
+                              <img src={photo.url} alt={photo.alt || ""} />
+                              <div className="admin-image-label">Uploaded</div>
+                              {photo.alt && <div>{photo.alt}</div>}
+                              <button
+                                className="admin-remove-btn"
+                                disabled={deletingPhotoId === photo.id}
+                                onClick={() => handleDeleteGalleryPhoto(photo.id)}
+                              >
+                                {deletingPhotoId === photo.id
+                                  ? "Removing…"
+                                  : "Remove"}
+                              </button>
+                            </div>
+                          ))}
+                          {totalVisible === 0 && (
+                            <p>No photos in this category yet.</p>
+                          )}
+                        </div>
+
+                        {hiddenInCategory.length > 0 && (
+                          <>
+                            <h3>Removed Built-in Photos</h3>
+                            <div className="admin-image-grid">
+                              {hiddenInCategory.map((photo) => (
+                                <div className="admin-image-card" key={photo.id}>
+                                  <img src={photo.src} alt={photo.alt || ""} />
+                                  {photo.alt && <div>{photo.alt}</div>}
+                                  <button
+                                    className="admin-add-btn"
+                                    disabled={hidingStaticId === photo.id}
+                                    onClick={() => handleRestoreStaticPhoto(photo.id)}
+                                  >
+                                    {hidingStaticId === photo.id
+                                      ? "Restoring…"
+                                      : "Restore"}
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               </>
             )}

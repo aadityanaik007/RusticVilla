@@ -33,9 +33,9 @@ export const TEXT_DEFAULTS = {
   "contact.email": "info@rusticfarmvilla.com",
   "contact.address":
     "Near Mandawa Grampanchayat, Mandva, Wada, Maharashtra 421303, India",
-  "contact.instagram_url": "https://www.instagram.com/rusticfarmvilla/",
+  "contact.instagram_url": "https://www.instagram.com/reel/DZEhBniD1lV/",
   "contact.facebook_url":
-    "https://www.facebook.com/profile.php?id=61580996151085",
+    "https://www.facebook.com/61580996151085/posts/pfbid02BgG66ExQvvp7eggSpkiWo4wz8iGM8SLq9KF8hdP9Y5GmN9o3aUYKGaVHSKLmo2Cul/",
   "contact.maps_url":
     "https://www.google.com/maps/place/Rustic+Farm+Villa/@19.7019817,73.2093252,19z/data=!4m10!1m2!2m1!1srustic+farm+villa+wada+mandwa!3m6!1s0x3be771fbc5679b97:0xe3defa4d2ebf6ee5!8m2!3d19.7019817!4d73.2099689!15sCh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YVofIh1ydXN0aWMgZmFybSB2aWxsYSB3YWRhIG1hbmR3YZIBBXZpbGxhmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVVJXY1hONmNrdG5FQUXgAQA!16s%2Fg%2F11lcfy4621?entry=ttu",
 
