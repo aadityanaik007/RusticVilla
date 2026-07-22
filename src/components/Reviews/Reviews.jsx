@@ -10,12 +10,12 @@ const Reviews = () => {
     <div className="reviews-page">
       <Seo
         title="Guest Reviews"
-        description="Read real Google reviews from guests who have stayed at Rustic Farm Villaa in Mandva, Wada — a top-rated farmhouse getaway near Mumbai."
+        description="Read real Google reviews from guests who have stayed at The Rustic Farm Villaa in Mandva, Wada — a top-rated farmhouse getaway near Mumbai."
         path="/reviews"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "LodgingBusiness",
-          name: "Rustic Farm Villaa",
+          name: "The Rustic Farm Villaa",
           aggregateRating: {
             "@type": "AggregateRating",
             ratingValue: "4.9",

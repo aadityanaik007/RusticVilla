@@ -12,7 +12,7 @@ def send_email(to_email: str, to_name: str, subject: str, text_content: str) -> 
         # Not configured (or no recipient) — skip rather than break the booking flow.
         return
 
-    sender_name = os.environ.get("BREVO_SENDER_NAME", "Rustic Farm Villaa")
+    sender_name = os.environ.get("BREVO_SENDER_NAME", "The Rustic Farm Villaa")
 
     try:
         response = requests.post(

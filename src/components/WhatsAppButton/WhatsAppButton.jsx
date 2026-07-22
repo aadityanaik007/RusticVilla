@@ -4,7 +4,7 @@ import { TEXT_DEFAULTS } from "../../data/siteDefaults";
 import { useSiteText } from "../../context/SiteContentContext";
 
 const DEFAULT_MESSAGE =
-  "Hi, I'd like to enquire about booking Rustic Farm Villaa.";
+  "Hi, I'd like to enquire about booking The Rustic Farm Villaa.";
 
 const WhatsAppButton = () => {
   const whatsappNumber = useSiteText(

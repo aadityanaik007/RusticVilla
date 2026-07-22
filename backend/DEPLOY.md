@@ -74,7 +74,7 @@ In the Vercel project → Settings → Environment Variables, add:
 | `CLOUDINARY_API_SECRET` | the API Secret from step 2 |
 | `BREVO_API_KEY` | the API key from step 3 |
 | `BREVO_SENDER_EMAIL` | the verified sender address from step 3 |
-| `BREVO_SENDER_NAME` | (optional) the name emails are sent from, e.g. "Rustic Farm Villa" |
+| `BREVO_SENDER_NAME` | (optional) the name emails are sent from, e.g. "The Rustic Farm Villa" |
 | `ADMIN_NOTIFICATION_EMAIL` | the email address that should receive new booking notifications |
 | `CALLMEBOT_PHONE` | your WhatsApp number with country code from step 4, e.g. `+918108266499` |
 | `CALLMEBOT_API_KEY` | the API key from step 4 |

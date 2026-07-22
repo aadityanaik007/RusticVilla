@@ -23,7 +23,7 @@ const Photos = () => {
 
   const adminGalleryImages = galleryPhotos.map((photo) => ({
     src: photo.url,
-    alt: photo.alt || "Rustic Farm Villaa",
+    alt: photo.alt || "The Rustic Farm Villaa",
     category: photo.category,
   }));
 
@@ -99,7 +99,7 @@ const Photos = () => {
     <div className="gallery-page">
       <Seo
         title="Gallery"
-        description="Browse photos of Rustic Farm Villaa's interiors, outdoor pool area, gardens, activities, dining, and the whimsical first-floor attic in Mandva, Wada."
+        description="Browse photos of The Rustic Farm Villaa's interiors, outdoor pool area, gardens, activities, dining, and the whimsical first-floor attic in Mandva, Wada."
         path="/gallery"
       />
       <Header />
@@ -110,7 +110,7 @@ const Photos = () => {
         <div className="gallery-hero-content">
           <h1 className="gallery-hero-title">Photo Gallery</h1>
           <p className="gallery-hero-subtitle">
-            Discover the beauty and charm of Rustic Farm Villaa
+            Discover the beauty and charm of The Rustic Farm Villaa
           </p>
         </div>
       </div>

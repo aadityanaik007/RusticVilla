@@ -41,7 +41,7 @@ const Footer = () => {
         <div className="footer-cta-content">
           <h2 className="footer-cta-title">Ready for Your Perfect Getaway?</h2>
           <p className="footer-cta-subtitle">
-            Experience luxury and tranquility at Rustic Farm Villaa
+            Experience luxury and tranquility at The Rustic Farm Villaa
           </p>
           <Link to="/contact" className="footer-cta-btn">
             Book Your Stay
@@ -55,8 +55,8 @@ const Footer = () => {
           {/* Brand Section */}
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <img src={logo} alt="Rustic Farm Villaa" className="footer-logo-image" />
-              <h3>Rustic Farm Villaa</h3>
+              <img src={logo} alt="The Rustic Farm Villaa" className="footer-logo-image" />
+              <h3>The Rustic Farm Villaa</h3>
             </Link>
             <p className="footer-description">{description}</p>
             <div className="footer-social">
@@ -155,7 +155,7 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="footer-container">
           <div className="footer-bottom-content">
-            <p>&copy; {currentYear} Rustic Farm Villaa. All rights reserved.</p>
+            <p>&copy; {currentYear} The Rustic Farm Villaa. All rights reserved.</p>
             <div className="footer-bottom-links">
               <span>Privacy Policy</span>
               <span>Terms of Service</span>

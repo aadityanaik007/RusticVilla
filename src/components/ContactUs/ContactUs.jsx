@@ -137,7 +137,7 @@ const ContactUs = () => {
     <div className="contact-page">
       <Seo
         title="Contact Us"
-        description="Get in touch with Rustic Farm Villaa in Mandva, Wada to book your stay. Call, WhatsApp, or send an enquiry and we'll respond within 24 hours."
+        description="Get in touch with The Rustic Farm Villaa in Mandva, Wada to book your stay. Call, WhatsApp, or send an enquiry and we'll respond within 24 hours."
         path="/contact"
       />
       <Header />
@@ -167,7 +167,7 @@ const ContactUs = () => {
                   <div className="contact-text">
                     <h3>Address</h3>
                     <p>
-                      Rustic Farm Villaa
+                      The Rustic Farm Villaa
                       <br />
                       {address}
                     </p>
@@ -211,7 +211,7 @@ const ContactUs = () => {
                     <p>
                       <a
                         href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                          "Hi, I'd like to enquire about booking Rustic Farm Villaa."
+                          "Hi, I'd like to enquire about booking The Rustic Farm Villaa."
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -229,7 +229,7 @@ const ContactUs = () => {
               <h3>Find Us</h3>
               <div className="map-container">
                 <iframe
-                  title="Rustic Farm Villaa Location"
+                  title="The Rustic Farm Villaa Location"
                   className="map-embed"
                   src="https://www.google.com/maps?q=19.7019817,73.2099689&z=15&output=embed"
                   loading="lazy"

@@ -35,7 +35,7 @@ if "bookings" in _inspector.get_table_names():
         with engine.begin() as conn:
             conn.execute(text("ALTER TABLE bookings ADD COLUMN previous_status VARCHAR"))
 
-app = FastAPI(title="Rustic Farm Villaa Booking API")
+app = FastAPI(title="The Rustic Farm Villaa Booking API")
 
 allowed_origins = [
     origin.strip()
@@ -158,10 +158,10 @@ def create_booking_request(
     send_email(
         payload.guest_email,
         payload.guest_name,
-        "Your Booking Request - Rustic Farm Villaa",
+        "Your Booking Request - The Rustic Farm Villaa",
         f"""Hi {payload.guest_name},
 
-Thanks for reaching out to Rustic Farm Villaa! We've received your booking
+Thanks for reaching out to The Rustic Farm Villaa! We've received your booking
 request for {payload.check_in} to {payload.check_out}{guest_count_text}.
 {f"Package: {payload.package}" if payload.package else ""}
 
@@ -171,15 +171,15 @@ Check-out: 10:00 AM IST
 We'll review availability and get back to you within 24 hours to confirm.
 
 Best Regards,
-Rustic Farm Villaa""",
+The Rustic Farm Villaa""",
     )
 
     admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
     if admin_email:
         send_email(
             admin_email,
-            "Rustic Farm Villaa Admin",
-            "New Booking Request - Rustic Farm Villaa",
+            "The Rustic Farm Villaa Admin",
+            "New Booking Request - The Rustic Farm Villaa",
             f"""New booking request from {payload.guest_name}.
 
 Dates: {payload.check_in} to {payload.check_out}
@@ -249,7 +249,7 @@ def confirm_booking(
         send_email(
             booking.guest_email,
             booking.guest_name,
-            "Your Booking is Confirmed! - Rustic Farm Villaa",
+            "Your Booking is Confirmed! - The Rustic Farm Villaa",
             f"""Hi {booking.guest_name},
 
 Great news — your booking request for {booking.check_in} to {booking.check_out}
@@ -262,15 +262,15 @@ We're looking forward to hosting you. If you have any questions before your
 stay, feel free to reach out.
 
 Best Regards,
-Rustic Farm Villaa""",
+The Rustic Farm Villaa""",
         )
 
         admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
         if admin_email:
             send_email(
                 admin_email,
-                "Rustic Farm Villaa Admin",
-                "Booking Confirmed - Rustic Farm Villaa",
+                "The Rustic Farm Villaa Admin",
+                "Booking Confirmed - The Rustic Farm Villaa",
                 f"""You confirmed the booking for {booking.guest_name},
 {booking.check_in} to {booking.check_out}. The guest has been notified by
 email.""",
@@ -302,20 +302,20 @@ def cancel_booking(
             send_email(
                 booking.guest_email,
                 booking.guest_name,
-                "Your Booking Has Been Cancelled - Rustic Farm Villaa",
+                "Your Booking Has Been Cancelled - The Rustic Farm Villaa",
                 f"""Hi {booking.guest_name},
 
 We're sorry to let you know that your confirmed booking for
-{booking.check_in} to {booking.check_out} at Rustic Farm Villaa has been
+{booking.check_in} to {booking.check_out} at The Rustic Farm Villaa has been
 cancelled.
 
 Please feel free to reach out to us for alternative dates — we'd love to
 host you another time.
 
 Best Regards,
-Rustic Farm Villaa""",
+The Rustic Farm Villaa""",
             )
-            admin_subject = "Booking Cancelled - Rustic Farm Villaa"
+            admin_subject = "Booking Cancelled - The Rustic Farm Villaa"
             admin_body = f"""You cancelled the confirmed booking for
 {booking.guest_name}, {booking.check_in} to {booking.check_out}. The guest
 has been notified by email."""
@@ -323,10 +323,10 @@ has been notified by email."""
             send_email(
                 booking.guest_email,
                 booking.guest_name,
-                "Update on Your Booking Request - Rustic Farm Villaa",
+                "Update on Your Booking Request - The Rustic Farm Villaa",
                 f"""Hi {booking.guest_name},
 
-Thank you for your interest in Rustic Farm Villaa. Unfortunately, we're
+Thank you for your interest in The Rustic Farm Villaa. Unfortunately, we're
 unable to accommodate your request for {booking.check_in} to {booking.check_out} at this
 time.
 
@@ -334,16 +334,16 @@ Please feel free to reach out to us for alternative dates — we'd love to
 host you another time.
 
 Best Regards,
-Rustic Farm Villaa""",
+The Rustic Farm Villaa""",
             )
-            admin_subject = "Booking Request Rejected - Rustic Farm Villaa"
+            admin_subject = "Booking Request Rejected - The Rustic Farm Villaa"
             admin_body = f"""You rejected the booking request from
 {booking.guest_name} for {booking.check_in} to {booking.check_out}. The
 guest has been notified by email."""
 
         admin_email = os.environ.get("ADMIN_NOTIFICATION_EMAIL")
         if admin_email:
-            send_email(admin_email, "Rustic Farm Villaa Admin", admin_subject, admin_body)
+            send_email(admin_email, "The Rustic Farm Villaa Admin", admin_subject, admin_body)
 
     return booking
 

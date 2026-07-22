@@ -41,9 +41,9 @@ export const TEXT_DEFAULTS = {
 
   "home.hero.quote": "Entire place just for you",
   "home.about.description":
-    "Nestled in the heart of nature, Rustic Farm Villaa offers an escape from the ordinary. Our thoughtfully designed spaces blend rustic charm with modern luxury, creating an atmosphere of tranquil sophistication that rejuvenates the soul.",
+    "Nestled in the heart of nature, The Rustic Farm Villaa offers an escape from the ordinary. Our thoughtfully designed spaces blend rustic charm with modern luxury, creating an atmosphere of tranquil sophistication that rejuvenates the soul.",
   "home.tour.description":
-    "Experience the authentic charm of rural Maharashtra at Rustic Farm Villaa. Discover serene landscapes, traditional architecture, and modern comforts that create unforgettable memories in the heart of Mandwa, Wada.",
+    "Experience the authentic charm of rural Maharashtra at The Rustic Farm Villaa. Discover serene landscapes, traditional architecture, and modern comforts that create unforgettable memories in the heart of Mandwa, Wada.",
   "home.amenities.description":
     "Nestled in the serene hills of Mandwa, Wada, our villa offers a perfect escape from city life. Surrounded by lush greenery and scenic landscapes, experience authentic rural charm with modern luxury amenities.",
 
@@ -84,14 +84,14 @@ export const TEXT_DEFAULTS = {
 };
 
 export const IMAGE_DEFAULTS = {
-  "home.hero": { src: homeHero, alt: "Rustic Farm Villaa" },
+  "home.hero": { src: homeHero, alt: "The Rustic Farm Villaa" },
   "home.about": { src: homeAbout, alt: "Luxury Bedroom" },
-  "home.tour": { src: homeTour, alt: "Bright, airy bedroom at Rustic Farm Villaa" },
+  "home.tour": { src: homeTour, alt: "Bright, airy bedroom at The Rustic Farm Villaa" },
   "about.story": { src: aboutStory, alt: "Lush garden surroundings" },
   "about.vintage": { src: aboutVintage, alt: "Comfortable Living" },
   "stay.hero": {
     src: stayHero,
-    alt: "Aerial view of the pool and grounds at Rustic Farm Villaa",
+    alt: "Aerial view of the pool and grounds at The Rustic Farm Villaa",
   },
   "stay.room.master": { src: stayRoomMaster, alt: "Master Bedroom" },
   "stay.room.bright": { src: stayRoomBright, alt: "Bright & Airy Bedroom" },
@@ -104,8 +104,8 @@ export const IMAGE_DEFAULTS = {
   "stay.dining": { src: stayDining, alt: "Elegant dining area" },
   "packages.weekend": { src: packagesWeekend, alt: "Weekend Getaway" },
   "packages.celebration": { src: packagesCelebration, alt: "Celebration Package" },
-  "packages.hero": { src: packagesHero, alt: "Celebration gathering at Rustic Farm Villaa" },
-  "contact.hero": { src: contactHero, alt: "The pool deck at dusk, Rustic Farm Villaa" },
-  "about.hero": { src: aboutHero, alt: "Garden swing at sunset, Rustic Farm Villaa" },
-  "gallery.hero": { src: galleryHero, alt: "The pool lit up at night, Rustic Farm Villaa" },
+  "packages.hero": { src: packagesHero, alt: "Celebration gathering at The Rustic Farm Villaa" },
+  "contact.hero": { src: contactHero, alt: "The pool deck at dusk, The Rustic Farm Villaa" },
+  "about.hero": { src: aboutHero, alt: "Garden swing at sunset, The Rustic Farm Villaa" },
+  "gallery.hero": { src: galleryHero, alt: "The pool lit up at night, The Rustic Farm Villaa" },
 };

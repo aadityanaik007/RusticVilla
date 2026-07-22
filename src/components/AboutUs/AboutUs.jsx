@@ -38,7 +38,7 @@ const AboutUs = () => {
     <div className="about-page">
       <Seo
         title="About Us"
-        description="Learn the story behind Rustic Farm Villaa — a vintage-inspired farmhouse in Wada, Palghar, Maharashtra, blending rustic charm with modern luxury amid nature."
+        description="Learn the story behind The Rustic Farm Villaa — a vintage-inspired farmhouse in Wada, Palghar, Maharashtra, blending rustic charm with modern luxury amid nature."
         path="/about"
       />
       <Header />
@@ -46,7 +46,7 @@ const AboutUs = () => {
         <img src={heroImage.src} alt={heroImage.alt} className="hero-bg-about" />
         <div className="hero-overlay-about"></div>
         <div className="hero-content-about">
-          <h1 className="hero-title-about">About Rustic Farm Villaa</h1>
+          <h1 className="hero-title-about">About The Rustic Farm Villaa</h1>
           <p className="hero-subtitle-about">{heroSubtitle}</p>
         </div>
       </div>

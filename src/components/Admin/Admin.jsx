@@ -499,7 +499,7 @@ const Admin = () => {
     <div className="admin-page">
       <Seo
         title="Admin"
-        description="Manage Rustic Farm Villaa booking availability and site content."
+        description="Manage The Rustic Farm Villaa booking availability and site content."
         path="/admin"
       />
 

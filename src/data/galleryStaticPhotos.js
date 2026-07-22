@@ -62,7 +62,7 @@ export const STATIC_GALLERY_PHOTOS = [
   { id: "swing", src: swing, alt: "Garden Swing at Sunset", category: "outdoor" },
 
   // Activities & Experiences
-  { id: "bonfire1", src: bonfire1, alt: "Bonfire Night at Rustic Farm Villaa", category: "activities" },
+  { id: "bonfire1", src: bonfire1, alt: "Bonfire Night at The Rustic Farm Villaa", category: "activities" },
   { id: "bonfireGathering", src: bonfireGathering, alt: "Birthday Celebration Around the Bonfire Hut", category: "activities" },
   { id: "tent1", src: tent1, alt: "Camping Experience", category: "activities" },
   { id: "tent2", src: tent2, alt: "Outdoor Adventures", category: "activities" },
@@ -78,7 +78,7 @@ export const STATIC_GALLERY_PHOTOS = [
     imageFit: "contain",
     bgGradient: "linear-gradient(135deg, rgb(230, 221, 210) 0%, rgb(120, 100, 101) 100%)",
   },
-  { id: "foodMenu", src: foodMenu, alt: "Sample Menu at Rustic Farm Villaa", category: "dining" },
+  { id: "foodMenu", src: foodMenu, alt: "Sample Menu at The Rustic Farm Villaa", category: "dining" },
 
   // First Floor - Toys & Decorations
   { id: "teddybear", src: teddybear, alt: "Adorable Teddy Bear Collection", category: "firstfloor" },

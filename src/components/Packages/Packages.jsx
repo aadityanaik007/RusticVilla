@@ -64,7 +64,7 @@ const Packages = () => {
     <div className="packages-page">
       <Seo
         title="Packages"
-        description="Explore the Weekend Getaway (₹1,800 per person) and Celebration packages at Rustic Farm Villaa. Contact us for custom pricing and availability."
+        description="Explore the Weekend Getaway (₹1,800 per person) and Celebration packages at The Rustic Farm Villaa. Contact us for custom pricing and availability."
         path="/packages"
       />
       <Header />
