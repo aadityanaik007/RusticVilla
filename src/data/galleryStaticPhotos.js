@@ -29,7 +29,6 @@ import blackSheetBDR from "../images/villa_images/blackSheetBDR.jpeg";
 import foodPlate from "../images/food/food-in-a-plate.jpeg";
 import foodMenu from "../images/food/food-menu.jpg";
 import lightBGBedroom from "../images/villa_images/lightBGBedroom.jpeg";
-import livingRoom from "../images/villa_images/living_room.jpeg";
 // First Floor Images
 import animals from "../images/FirstFloor/animals.jpeg";
 import doll2 from "../images/FirstFloor/doll2.jpeg";
@@ -42,7 +41,6 @@ import teddybear from "../images/FirstFloor/teddybear.jpeg";
 
 export const STATIC_GALLERY_PHOTOS = [
   // Interior Spaces
-  { id: "livingRoom", src: livingRoom, alt: "Luxurious Living Room", category: "interior" },
   { id: "lightBGBedroom", src: lightBGBedroom, alt: "Bright & Airy Bedroom", category: "interior" },
   { id: "blackSheetBDR", src: blackSheetBDR, alt: "Elegant Master Bedroom", category: "interior" },
   { id: "bedroom1", src: bedroom1, alt: "Comfortable Guest Room", category: "interior" },
